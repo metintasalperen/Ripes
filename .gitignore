@@ -15,3 +15,6 @@ qrc_*
 Ripes
 RipesTest
 libRipesLib.a
+
+out/
+.vs
