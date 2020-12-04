@@ -35,6 +35,8 @@ Enum(CompOp, NOP, EQ, NE, LT, LTU, GE, GEU);
 Enum(MemOp, NOP, LB, LH, LW, LBU, LHU, SB, SH, SW);
 Enum(ECALL, none, print_int = 1, print_char = 2, print_string = 4, exit = 10);
 Enum(PcSrc, PC4 = 0, ALU = 1);
+Enum(JalJalrSrc, JAL = 0, JALR = 1);
+Enum(UnBrAluSrc, ALU = 0, UnBr = 1);
 
 /** Instruction field parser */
 class RVInstrParser {
