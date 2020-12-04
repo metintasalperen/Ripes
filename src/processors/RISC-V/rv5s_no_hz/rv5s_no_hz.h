@@ -13,7 +13,7 @@
 #include "../rv5s/rv5s_forwardingunit.h"
 #include "../rv_alu.h"
 #include "../rv_branch.h"
-#include "../rv_control.h"
+#include "../rv5s/rv5s_control.h"
 #include "../rv_decode.h"
 #include "../rv_ecallchecker.h"
 #include "../rv_immediate.h"
@@ -34,6 +34,25 @@ class RV5S_NO_HZ : public RipesProcessor {
 public:
     enum Stage { IF = 0, ID = 1, EX = 2, MEM = 3, WB = 4, STAGECOUNT };
     RV5S_NO_HZ() : RipesProcessor("5-Stage RISC-V Processor without forwarding") {
+        registerFile->r1_out >> jal_jalr_src->get(JalJalrSrc::JALR);
+        ifid_reg->pc_out >> jal_jalr_src->get(JalJalrSrc::JAL);
+        control->do_jalr >> jal_jalr_src->select;
+
+        jal_jalr_src->out >> un_br_addr_calc->op1;
+        immediate->imm >> un_br_addr_calc->op2;
+
+        un_br_addr_calc->out >> un_br_alu_src->get(UnBrAluSrc::UnBr);
+        alu->res >> un_br_alu_src->get(UnBrAluSrc::ALU);
+        control->do_jump >> un_br_alu_src->select;
+
+        un_br_alu_src->out >> pc_src->get(PcSrc::ALU);
+
+        control->do_jump >> *controlflow_or->in[1];
+
+        br_and->out >> *efsc_or->in[0];
+        control->do_jump >> *ifid_clear_or->in[1];
+        efsc_or->out >> *ifid_clear_or->in[0];
+
         // -----------------------------------------------------------------------
         // Program counter
         pc_reg->out >> pc_4->op1;
@@ -45,7 +64,7 @@ public:
         // 0/1 values.
         controlflow_or->out >> pc_src->select;
 
-        controlflow_or->out >> *efsc_or->in[0];
+        // controlflow_or->out >> *efsc_or->in[0];
         ecallChecker->syscallExit >> *efsc_or->in[1];
 
         // -----------------------------------------------------------------------
@@ -90,10 +109,10 @@ public:
         branch->res >> *br_and->in[0];
         idex_reg->do_br_out >> *br_and->in[1];
         br_and->out >> *controlflow_or->in[0];
-        idex_reg->do_jmp_out >> *controlflow_or->in[1];
+        // idex_reg->do_jmp_out >> *controlflow_or->in[1];
 
         pc_4->out >> pc_src->get(PcSrc::PC4);
-        alu->res >> pc_src->get(PcSrc::ALU);
+        // alu->res >> pc_src->get(PcSrc::ALU);
 
         // -----------------------------------------------------------------------
         // ALU
@@ -143,14 +162,14 @@ public:
         pc_reg->out >> ifid_reg->pc_in;
         instr_mem->data_out >> ifid_reg->instr_in;
         1 >> ifid_reg->enable;
-        efsc_or->out >> ifid_reg->clear;
+        ifid_clear_or->out >> ifid_reg->clear;
         1 >> ifid_reg->valid_in;  // Always valid unless register is cleared
 
         // -----------------------------------------------------------------------
         // ID/EX
         1 >> idex_reg->enable;
         0 >> idex_reg->stalled_in;
-        controlflow_or->out >> idex_reg->clear;
+        efsc_or->out >> idex_reg->clear;
 
         // Data
         ifid_reg->pc4_out >> idex_reg->pc4_in;
@@ -230,11 +249,15 @@ public:
     // Design subcomponents
     SUBCOMPONENT(registerFile, RegisterFile<true>);
     SUBCOMPONENT(alu, ALU);
-    SUBCOMPONENT(control, Control);
+    SUBCOMPONENT(control, RV5S_CONTROL);
     SUBCOMPONENT(immediate, Immediate);
     SUBCOMPONENT(decode, Decode);
     SUBCOMPONENT(branch, Branch);
     SUBCOMPONENT(pc_4, Adder<RV_REG_WIDTH>);
+    SUBCOMPONENT(jal_jalr_src, TYPE(EnumMultiplexer<JalJalrSrc, RV_REG_WIDTH>));
+    SUBCOMPONENT(un_br_alu_src, TYPE(EnumMultiplexer<UnBrAluSrc, RV_REG_WIDTH>));
+    SUBCOMPONENT(un_br_addr_calc, Adder<RV_REG_WIDTH>);
+    SUBCOMPONENT(ifid_clear_or, TYPE(Or<1, 2>));
 
     // Registers
     SUBCOMPONENT(pc_reg, Register<RV_REG_WIDTH>);
