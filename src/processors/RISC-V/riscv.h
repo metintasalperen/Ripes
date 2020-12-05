@@ -25,7 +25,10 @@ Enum(RVInstr, NOP,
      ORI, ANDI, SLLI, SRLI, SRAI, ADD, SUB, SLL, SLT, SLTU, XOR, SRL, SRA, OR, AND, ECALL,
 
      /* RV32M Standard Extension */
-     MUL, MULH, MULHSU, MULHU, DIV, DIVU, REM, REMU);
+     MUL, MULH, MULHSU, MULHU, DIV, DIVU, REM, REMU,
+    
+    /* Branch with Flag Instructions */
+     BLTF, BGTF, BLEF, BGEF, BEQF, BNEF, BLOF, BHIF, BLSF, BHSF);
 
 /** Datapath enumerations */
 Enum(ALUOp, NOP, ADD, SUB, MUL, DIV, AND, OR, XOR, SL, SRA, SRL, LUI, LT, LTU, EQ, MULH, MULHU, MULHSU, DIVU, REM,
@@ -39,6 +42,7 @@ Enum(ECALL, none, print_int = 1, print_char = 2, print_string = 4, exit = 10);
 Enum(PcSrc, PC4 = 0, ALU = 1);
 Enum(JalJalrSrc, JAL = 0, JALR = 1);
 Enum(UnBrAluSrc, ALU = 0, UnBr = 1);
+Enum(CompFlagOp, NOP, EQ, NE, LT, LTE, GT, GTE, LTU, LTEU, GTU, GTEU);
 
 /** Instruction field parser */
 class RVInstrParser {

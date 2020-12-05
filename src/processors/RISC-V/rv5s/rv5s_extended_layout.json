@@ -2405,6 +2405,70 @@
                 "PortWidthVisible": true,
                 "UserHidden": false
             },
+            "do_br_with_flag": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "do_br_with_flag"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x0"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "comp_flag_ctrl": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "comp_flag_ctrl"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "NOP"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
             "mem_do_write_ctrl": {
                 "Label": {
                     "Visible": false,
@@ -2865,6 +2929,60 @@
                     }
                 ],
                 "points": [],
+                "wires": [
+                    {
+                        "first": 0,
+                        "second": 1
+                    }
+                ]
+            },
+            "do_br_with_flag_out_wire": {
+                "Parent": "5-Stage RISC-V Processor",
+                "From port": {
+                    "first": 0,
+                    "second": [
+                        "do_br_with_flag",
+                        "control"
+                    ]
+                },
+                "To ports": [
+                    {
+                        "key": 1,
+                        "value": [
+                            "do_br_with_flag",
+                            "idex_reg"
+                        ]
+                    }
+                ],
+                "points": [
+                ],
+                "wires": [
+                    {
+                        "first": 0,
+                        "second": 1
+                    }
+                ]
+            },
+            "comp_flag_ctrl_out_wire": {
+                "Parent": "5-Stage RISC-V Processor",
+                "From port": {
+                    "first": 0,
+                    "second": [
+                        "comp_flag_ctrl",
+                        "control"
+                    ]
+                },
+                "To ports": [
+                    {
+                        "key": 1,
+                        "value": [
+                            "comp_flag_ctrl",
+                            "idex_reg"
+                        ]
+                    }
+                ],
+                "points": [
+                ],
                 "wires": [
                     {
                         "first": 0,
@@ -12759,6 +12877,134 @@
                 "PortWidthVisible": true,
                 "UserHidden": false
             },
+            "do_br_with_flag_in": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "do_br_with_flag_in"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x0"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "comp_flag_ctrl_in": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "comp_flag_ctrl_in"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x000"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "do_br_with_flag_out": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "do_br_with_flag_in"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x0"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "comp_flag_ctrl_out": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "comp_flag_ctrl_in"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x000"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
             "imm_out": {
                 "Label": {
                     "Visible": false,
@@ -21048,9 +21294,118 @@
                     }
                 ]
             },
+            "comp_flag_ctrl_out_out_wire": {
+                "Parent": "5-Stage RISC-V Processor",
+                "From port": {
+                    "first": 0,
+                    "second": [
+                        "comp_flag_ctrl_out",
+                        "idex_reg"
+                    ]
+                },
+                "To ports": [
+                    {
+                        "key": 1,
+                        "value": [
+                            "comp_op",
+                            "branch_with_flag"
+                        ]
+                    }
+                ],
+                "points": [
+                    {
+                        "key": 2,
+                        "value": {
+                            "x": 1534,
+                            "y": 300
+                        }
+                    },
+                    {
+                        "key": 3,
+                        "value": {
+                            "x": 1534,
+                            "y": 1050
+                        }
+                    },
+                    {
+                        "key": 4,
+                        "value": {
+                            "x": 1766,
+                            "y": 1050
+                        }
+                    }
+                ],
+                "wires": [
+                    {
+                        "first": 0,
+                        "second": 2
+                    },
+                    {
+                        "first": 2,
+                        "second": 3
+                    },
+                    {
+                        "first": 3,
+                        "second": 4
+                    },
+                    {
+                        "first": 4,
+                        "second": 1
+                    }
+                ]
+            },
+            "do_br_with_flag_out_out_wire": {
+                "Parent": "5-Stage RISC-V Processor",
+                "From port": {
+                    "first": 0,
+                    "second": [
+                        "do_br_with_flag_out",
+                        "idex_reg"
+                    ]
+                },
+                "To ports": [
+                    {
+                        "key": 1,
+                        "value": [
+                            "in_1",
+                            "br_flag_and"
+                        ]
+                    }
+                ],
+                "points": [
+                    {
+                        "key": 2,
+                        "value": {
+                            "x": 1080,
+                            "y": 314
+                        }
+                    },
+                    {
+                        "key": 3,
+                        "value": {
+                            "x": 1080,
+                            "y": 170
+                        }
+                    }
+                ],
+                "wires": [
+                    {
+                        "first": 0,
+                        "second": 2
+                    },
+                    {
+                        "first": 2,
+                        "second": 3
+                    },
+                    {
+                        "first": 3,
+                        "second": 1
+                    }
+                ]
+            },
             "Pos": {
                 "x": 868,
-                "y": 312
+                "y": 284
             },
             "Visible": true,
             "User hidden": false,
@@ -21059,100 +21414,108 @@
                     "key": 0,
                     "value": [
                         {
-                            "key": "alu_ctrl_in",
-                            "value": 11
+                            "key": "comp_flag_ctrl_in",
+                            "value": 1
                         },
                         {
-                            "key": "alu_op1_ctrl_in",
-                            "value": 9
+                            "key": "do_br_with_flag_in",
+                            "value": 2
                         },
                         {
-                            "key": "alu_op2_ctrl_in",
-                            "value": 10
+                            "key": "reg_do_write_in",
+                            "value": 3
                         },
                         {
-                            "key": "br_op_in",
-                            "value": 12
-                        },
-                        {
-                            "key": "clear",
-                            "value": 35
-                        },
-                        {
-                            "key": "do_br_in",
-                            "value": 8
-                        },
-                        {
-                            "key": "do_jmp_in",
-                            "value": 6
-                        },
-                        {
-                            "key": "enable",
-                            "value": 36
-                        },
-                        {
-                            "key": "imm_in",
-                            "value": 28
-                        },
-                        {
-                            "key": "mem_do_read_in",
+                            "key": "reg_wr_src_ctrl_in",
                             "value": 4
                         },
                         {
                             "key": "mem_do_write_in",
-                            "value": 3
-                        },
-                        {
-                            "key": "mem_op_in",
                             "value": 5
                         },
                         {
-                            "key": "opcode_in",
-                            "value": 33
+                            "key": "mem_do_read_in",
+                            "value": 6
                         },
                         {
-                            "key": "pc4_in",
-                            "value": 14
-                        },
-                        {
-                            "key": "pc_in",
-                            "value": 17
-                        },
-                        {
-                            "key": "r1_in",
-                            "value": 21
-                        },
-                        {
-                            "key": "r2_in",
-                            "value": 25
-                        },
-                        {
-                            "key": "rd_reg1_idx_in",
-                            "value": 30
-                        },
-                        {
-                            "key": "rd_reg2_idx_in",
-                            "value": 32
-                        },
-                        {
-                            "key": "reg_do_write_in",
-                            "value": 1
-                        },
-                        {
-                            "key": "reg_wr_src_ctrl_in",
-                            "value": 2
-                        },
-                        {
-                            "key": "stalled_in",
-                            "value": 16
-                        },
-                        {
-                            "key": "valid_in",
+                            "key": "mem_op_in",
                             "value": 7
                         },
                         {
+                            "key": "do_jmp_in",
+                            "value": 8
+                        },
+                        {
+                            "key": "valid_in",
+                            "value": 9
+                        },
+                        {
+                            "key": "do_br_in",
+                            "value": 10
+                        },
+                        {
+                            "key": "alu_op1_ctrl_in",
+                            "value": 11
+                        },
+                        {
+                            "key": "alu_op2_ctrl_in",
+                            "value": 12
+                        },
+                        {
+                            "key": "alu_ctrl_in",
+                            "value": 13
+                        },
+                        {
+                            "key": "br_op_in",
+                            "value": 14
+                        },
+                        {
+                            "key": "pc4_in",
+                            "value": 16
+                        },
+                        {
+                            "key": "stalled_in",
+                            "value": 18
+                        },
+                        {
+                            "key": "pc_in",
+                            "value": 19
+                        },
+                        {
+                            "key": "r1_in",
+                            "value": 23
+                        },
+                        {
+                            "key": "r2_in",
+                            "value": 27
+                        },
+                        {
+                            "key": "imm_in",
+                            "value": 30
+                        },
+                        {
+                            "key": "rd_reg1_idx_in",
+                            "value": 32
+                        },
+                        {
                             "key": "wr_reg_idx_in",
-                            "value": 31
+                            "value": 33
+                        },
+                        {
+                            "key": "rd_reg2_idx_in",
+                            "value": 34
+                        },
+                        {
+                            "key": "opcode_in",
+                            "value": 35
+                        },
+                        {
+                            "key": "clear",
+                            "value": 37
+                        },
+                        {
+                            "key": "enable",
+                            "value": 38
                         }
                     ]
                 },
@@ -21160,92 +21523,100 @@
                     "key": 1,
                     "value": [
                         {
-                            "key": "alu_ctrl_out",
-                            "value": 11
-                        },
-                        {
-                            "key": "alu_op1_ctrl_out",
-                            "value": 9
-                        },
-                        {
-                            "key": "alu_op2_ctrl_out",
-                            "value": 10
-                        },
-                        {
-                            "key": "br_op_out",
-                            "value": 12
-                        },
-                        {
-                            "key": "do_br_out",
-                            "value": 8
-                        },
-                        {
-                            "key": "do_jmp_out",
-                            "value": 6
-                        },
-                        {
-                            "key": "imm_out",
-                            "value": 28
-                        },
-                        {
-                            "key": "mem_do_read_out",
-                            "value": 4
-                        },
-                        {
-                            "key": "mem_do_write_out",
-                            "value": 3
-                        },
-                        {
-                            "key": "mem_op_out",
-                            "value": 5
-                        },
-                        {
-                            "key": "opcode_out",
-                            "value": 33
-                        },
-                        {
-                            "key": "pc4_out",
-                            "value": 14
-                        },
-                        {
-                            "key": "pc_out",
-                            "value": 17
-                        },
-                        {
-                            "key": "r1_out",
-                            "value": 21
-                        },
-                        {
-                            "key": "r2_out",
-                            "value": 25
-                        },
-                        {
-                            "key": "rd_reg1_idx_out",
-                            "value": 30
-                        },
-                        {
-                            "key": "rd_reg2_idx_out",
-                            "value": 32
-                        },
-                        {
-                            "key": "reg_do_write_out",
+                            "key": "comp_flag_ctrl_out",
                             "value": 1
                         },
                         {
-                            "key": "reg_wr_src_ctrl_out",
+                            "key": "do_br_with_flag_out",
                             "value": 2
                         },
                         {
-                            "key": "stalled_out",
+                            "key": "alu_ctrl_out",
                             "value": 13
                         },
                         {
-                            "key": "valid_out",
+                            "key": "alu_op1_ctrl_out",
+                            "value": 11
+                        },
+                        {
+                            "key": "alu_op2_ctrl_out",
+                            "value": 12
+                        },
+                        {
+                            "key": "br_op_out",
+                            "value": 14
+                        },
+                        {
+                            "key": "do_br_out",
+                            "value": 10
+                        },
+                        {
+                            "key": "do_jmp_out",
+                            "value": 8
+                        },
+                        {
+                            "key": "imm_out",
+                            "value": 30
+                        },
+                        {
+                            "key": "mem_do_read_out",
+                            "value": 6
+                        },
+                        {
+                            "key": "mem_do_write_out",
+                            "value": 5
+                        },
+                        {
+                            "key": "mem_op_out",
+                            "value": 7
+                        },
+                        {
+                            "key": "opcode_out",
                             "value": 35
                         },
                         {
+                            "key": "pc4_out",
+                            "value": 16
+                        },
+                        {
+                            "key": "pc_out",
+                            "value": 19
+                        },
+                        {
+                            "key": "r1_out",
+                            "value": 23
+                        },
+                        {
+                            "key": "r2_out",
+                            "value": 27
+                        },
+                        {
+                            "key": "rd_reg1_idx_out",
+                            "value": 32
+                        },
+                        {
+                            "key": "rd_reg2_idx_out",
+                            "value": 34
+                        },
+                        {
+                            "key": "reg_do_write_out",
+                            "value": 3
+                        },
+                        {
+                            "key": "reg_wr_src_ctrl_out",
+                            "value": 4
+                        },
+                        {
+                            "key": "stalled_out",
+                            "value": 15
+                        },
+                        {
+                            "key": "valid_out",
+                            "value": 37
+                        },
+                        {
                             "key": "wr_reg_idx_out",
-                            "value": 31
+                            "value": 33
                         }
                     ]
                 }

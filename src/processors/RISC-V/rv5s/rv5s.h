@@ -64,6 +64,9 @@ public:
         alu->overflow_flag >> alu_flag_reg->overflow_flag_in;
         alu->carry_flag >> alu_flag_reg->carry_flag_in;
 
+        control->comp_flag_ctrl >> idex_reg->comp_flag_ctrl_in;
+        control->do_br_with_flag >> idex_reg->do_br_with_flag_in;
+
         // -----------------------------------------------------------------------
         // Program counter
         pc_reg->out >> pc_4->op1;
