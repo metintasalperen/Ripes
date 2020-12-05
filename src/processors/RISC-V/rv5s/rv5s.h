@@ -56,8 +56,6 @@ public:
         control->do_jump >> *ifid_clear_or->in[1];
         ifid_clear_or->out >> ifid_reg->clear;
 
-        control->do_jump >> *controlflow_or->in[1];
-
         1 >> alu_flag_reg->enable;
         0 >> alu_flag_reg->clear;
         alu->zero_flag >> alu_flag_reg->zero_flag_in;
@@ -74,6 +72,17 @@ public:
         alu_flag_reg->overflow_flag_out >> branch_with_flag->overflow_flag;
         idex_reg->comp_flag_ctrl_out >> branch_with_flag->comp_op;
 
+        idex_reg->do_br_with_flag_out >> *br_flag_and->in[1];
+        branch_with_flag->branch_taken >> *br_flag_and->in[0];
+
+        br_flag_and->out >> *controlflow_or->in[0];
+        control->do_jump >> *controlflow_or->in[1];
+        br_and->out >> *controlflow_or->in[2];
+
+        br_and->out >> *efsc_or->in[0];
+        ecallChecker->syscallExit >> *efsc_or->in[1];
+        br_flag_and->out >> *efsc_or->in[2];
+
         // -----------------------------------------------------------------------
         // Program counter
         pc_reg->out >> pc_4->op1;
@@ -86,10 +95,6 @@ public:
         // from the controlflow OR gate. PcSrc enum values must adhere to the boolean
         // 0/1 values.
         controlflow_or->out >> pc_src->select;
-
-        // controlflow_or->out >> *efsc_or->in[0];
-        br_and->out >> *efsc_or->in[0];
-        ecallChecker->syscallExit >> *efsc_or->in[1];
 
         efsc_or->out >> *efschz_or->in[0];
         hzunit->hazardIDEXClear >> *efschz_or->in[1];
@@ -135,8 +140,6 @@ public:
 
         branch->res >> *br_and->in[0];
         idex_reg->do_br_out >> *br_and->in[1];
-        br_and->out >> *controlflow_or->in[0];
-        // idex_reg->do_jmp_out >> *controlflow_or->in[1];
 
         pc_4->out >> pc_src->get(PcSrc::PC4);
         // alu->res >> pc_src->get(PcSrc::ALU);
@@ -305,6 +308,7 @@ public:
     SUBCOMPONENT(un_br_addr_calc, Adder<RV_REG_WIDTH>);
     SUBCOMPONENT(ifid_clear_or, TYPE(Or<1, 2>));
     SUBCOMPONENT(branch_with_flag, BRANCH_WITH_FLAG);
+    SUBCOMPONENT(br_flag_and, TYPE(And<1, 2>));
 
     // Registers
     SUBCOMPONENT(pc_reg, RegisterClEn<RV_REG_WIDTH>);
@@ -338,9 +342,9 @@ public:
     // True if branch instruction and branch taken
     SUBCOMPONENT(br_and, TYPE(And<1, 2>));
     // True if branch taken or jump instruction
-    SUBCOMPONENT(controlflow_or, TYPE(Or<1, 2>));
+    SUBCOMPONENT(controlflow_or, TYPE(Or<1, 3>));
     // True if controlflow action or performing syscall finishing
-    SUBCOMPONENT(efsc_or, TYPE(Or<1, 2>));
+    SUBCOMPONENT(efsc_or, TYPE(Or<1, 3>));
     // True if above or stalling due to load-use hazard
     SUBCOMPONENT(efschz_or, TYPE(Or<1, 2>));
 

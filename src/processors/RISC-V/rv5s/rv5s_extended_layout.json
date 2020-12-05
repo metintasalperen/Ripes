@@ -1698,11 +1698,210 @@
                             "in_2",
                             "controlflow_or"
                         ]
+                    }
+                ],
+                "points": [
+                    {
+                        "key": 2,
+                        "value": {
+                            "x": 1040,
+                            "y": 120
+                        }
                     },
                     {
-                        "key": 4,
+                        "key": 3,
+                        "value": {
+                            "x": 1284,
+                            "y": 120
+                        }
+                    }
+                ],
+                "wires": [
+                    {
+                        "first": 0,
+                        "second": 2
+                    },
+                    {
+                        "first": 2,
+                        "second": 3
+                    },
+                    {
+                        "first": 3,
+                        "second": 1
+                    }
+                ]
+            },
+            "Pos": {
+                "x": 1000,
+                "y": 150
+            },
+            "Visible": true,
+            "User hidden": false,
+            "Component border": [
+                {
+                    "key": 0,
+                    "value": [
+                        {
+                            "key": "in_0",
+                            "value": 2
+                        },
+                        {
+                            "key": "in_1",
+                            "value": 1
+                        }
+                    ]
+                },
+                {
+                    "key": 1,
+                    "value": [
+                        {
+                            "key": "out",
+                            "value": 2
+                        }
+                    ]
+                }
+            ],
+            "Name label": {
+                "Visible": false,
+                "Bold": false,
+                "Italic": false,
+                "PtSize": 12,
+                "Text": {
+                    "str": "br_and"
+                },
+                "Pos": {
+                    "x": 14.0,
+                    "y": -19.0
+                },
+                "Alignment": 132
+            },
+            "Indicators": []
+        },
+        "br_flag_and": {
+            "Top name": "br_and",
+            "Rect": {
+                "x": 0,
+                "y": 0,
+                "w": 2,
+                "h": 3
+            },
+            "in_0": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "in_0"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x0"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": false,
+                "UserHidden": false
+            },
+            "in_1": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "in_1"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x0"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": false,
+                "UserHidden": false
+            },
+            "out": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "out"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x0"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": false,
+                "UserHidden": false
+            },
+            "out_out_wire": {
+                "Parent": "5-Stage RISC-V Processor",
+                "From port": {
+                    "first": 0,
+                    "second": [
+                        "out",
+                        "br_flag_and"
+                    ]
+                },
+                "To ports": [
+                    {
+                        "key": 1,
                         "value": [
                             "in_0",
+                            "controlflow_or"
+                        ]
+                    },
+                    {
+                        "key": 2,
+                        "value": [
+                            "in_2",
                             "efsc_or"
                         ]
                     }
@@ -1715,12 +1914,12 @@
                     },
                     {
                         "first": 0,
-                        "second": 4
+                        "second": 2
                     }
                 ]
             },
             "Pos": {
-                "x": 1000,
+                "x": 1100,
                 "y": 150
             },
             "Visible": true,
@@ -2236,14 +2435,14 @@
                         "key": 2,
                         "value": {
                             "x": 1970,
-                            "y": 1040
+                            "y": 1024
                         }
                     },
                     {
                         "key": 3,
                         "value": {
                             "x": 1550,
-                            "y": 1040
+                            "y": 1024
                         }
                     },
                     {
@@ -3424,8 +3623,8 @@
             "Rect": {
                 "x": 0,
                 "y": 0,
-                "w": 2,
-                "h": 3
+                "w": 3,
+                "h": 4
             },
             "in_0": {
                 "Label": {
@@ -3467,6 +3666,38 @@
                     "PtSize": 8,
                     "Text": {
                         "str": "in_1"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x0"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": false,
+                "UserHidden": false
+            },
+            "in_2": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "in_2"
                     },
                     "Pos": {
                         "x": 0.0,
@@ -3539,25 +3770,36 @@
                             "select",
                             "pc_src"
                         ]
+                    },
+                    {
+                        "key": 2,
+                        "value": [
+                            "in_0",
+                            "efsc_or"
+                        ]
                     }
                 ],
                 "points": [
                     {
                         "key": 3,
                         "value": {
-                            "x": 1428,
-                            "y": 100
+                            "x": 1364,
+                            "y": 114
                         }
                     },
                     {
                         "key": 4,
                         "value": {
                             "x": 56,
-                            "y": 100
+                            "y": 114
                         }
                     }
                 ],
                 "wires": [
+                    {
+                        "first": 0,
+                        "second": 2
+                    },
                     {
                         "first": 4,
                         "second": 1
@@ -3573,8 +3815,8 @@
                 ]
             },
             "Pos": {
-                "x": 1386,
-                "y": 150
+                "x": 1300,
+                "y": 136
             },
             "Visible": true,
             "User hidden": false,
@@ -3584,10 +3826,14 @@
                     "value": [
                         {
                             "key": "in_0",
-                            "value": 2
+                            "value": 3
                         },
                         {
                             "key": "in_1",
+                            "value": 2
+                        },
+                        {
+                            "key": "in_2",
                             "value": 1
                         }
                     ]
@@ -5678,8 +5924,8 @@
             "Rect": {
                 "x": 0,
                 "y": 0,
-                "w": 2,
-                "h": 3
+                "w": 3,
+                "h": 4
             },
             "in_0": {
                 "Label": {
@@ -5721,6 +5967,38 @@
                     "PtSize": 8,
                     "Text": {
                         "str": "in_1"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": ""
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": false,
+                "UserHidden": false
+            },
+            "in_2": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "in_2"
                     },
                     "Pos": {
                         "x": 0.0,
@@ -5797,8 +6075,8 @@
                     {
                         "key": 2,
                         "value": [
-                            "clear",
-                            "ifid_reg"
+                            "in_0",
+                            "ifid_clear_or"
                         ]
                     }
                 ],
