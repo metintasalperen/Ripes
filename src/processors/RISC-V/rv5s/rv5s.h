@@ -12,6 +12,7 @@
 #include "../riscv.h"
 #include "rv5s_alu.h"
 #include "../rv_branch.h"
+#include "../rv_branch_with_flag.h"
 #include "rv5s_control.h"
 #include "../rv_decode.h"
 #include "../rv_ecallchecker.h"
@@ -66,6 +67,12 @@ public:
 
         control->comp_flag_ctrl >> idex_reg->comp_flag_ctrl_in;
         control->do_br_with_flag >> idex_reg->do_br_with_flag_in;
+
+        alu_flag_reg->zero_flag_out >> branch_with_flag->zero_flag;
+        alu_flag_reg->sign_flag_out >> branch_with_flag->sign_flag;
+        alu_flag_reg->carry_flag_out >> branch_with_flag->carry_flag;
+        alu_flag_reg->overflow_flag_out >> branch_with_flag->overflow_flag;
+        idex_reg->comp_flag_ctrl_out >> branch_with_flag->comp_op;
 
         // -----------------------------------------------------------------------
         // Program counter
@@ -297,6 +304,7 @@ public:
     SUBCOMPONENT(pc_4, Adder<RV_REG_WIDTH>);
     SUBCOMPONENT(un_br_addr_calc, Adder<RV_REG_WIDTH>);
     SUBCOMPONENT(ifid_clear_or, TYPE(Or<1, 2>));
+    SUBCOMPONENT(branch_with_flag, BRANCH_WITH_FLAG);
 
     // Registers
     SUBCOMPONENT(pc_reg, RegisterClEn<RV_REG_WIDTH>);
