@@ -14,6 +14,8 @@ namespace Ripes {
 #define RV_REGS 32
 #define RV_REGS_BITS ceillog2(RV_REGS)
 
+#define MAX_UINT_32 4294967295
+
 /** Instruction set enumerations */
 Enum(RVInstrType, R, I, S, B, U, J);
 

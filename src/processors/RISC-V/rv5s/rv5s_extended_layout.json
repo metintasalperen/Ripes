@@ -144,6 +144,134 @@
                 "PortWidthVisible": true,
                 "UserHidden": false
             },
+            "zero_flag": {
+                "Label": {
+                    "Visible": true,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "Z"
+                    },
+                    "Pos": {
+                        "x": -28.554918464492176,
+                        "y": -12.121198751974135
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x0"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "sign_flag": {
+                "Label": {
+                    "Visible": true,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "N"
+                    },
+                    "Pos": {
+                        "x": -28.554918464492176,
+                        "y": -12.121198751974135
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x0"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "carry_flag": {
+                "Label": {
+                    "Visible": true,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "C"
+                    },
+                    "Pos": {
+                        "x": -28.554918464492176,
+                        "y": -12.121198751974135
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x0"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "overflow_flag": {
+                "Label": {
+                    "Visible": true,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "O"
+                    },
+                    "Pos": {
+                        "x": -28.554918464492176,
+                        "y": -12.121198751974135
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x0"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
             "res_out_wire": {
                 "Parent": "5-Stage RISC-V Processor",
                 "From port": {
@@ -239,8 +367,24 @@
                     "key": 1,
                     "value": [
                         {
+                            "key": "zero_flag",
+                            "value": 4
+                        },
+                        {
+                            "key": "sign_flag",
+                            "value": 5
+                        },
+                        {
                             "key": "res",
                             "value": 6
+                        },
+                        {
+                            "key": "carry_flag",
+                            "value": 7
+                        },
+                        {
+                            "key": "overflow_flag",
+                            "value": 8
                         }
                     ]
                 },
@@ -4323,8 +4467,8 @@
                 "x": 1000,
                 "y": 20
             },
-            "Visible": true,
-            "User hidden": false,
+            "Visible": false,
+            "User hidden": true,
             "Component border": [
                 {
                     "key": 0,
@@ -4514,8 +4658,8 @@
                 "x": 1100,
                 "y": 20
             },
-            "Visible": true,
-            "User hidden": false,
+            "Visible": false,
+            "User hidden": true,
             "Component border": [
                 {
                     "key": 0,
@@ -4690,8 +4834,8 @@
                 "x": 1200,
                 "y": 20
             },
-            "Visible": true,
-            "User hidden": false,
+            "Visible": false,
+            "User hidden": true,
             "Component border": [
                 {
                     "key": 0,
@@ -20552,8 +20696,8 @@
                 "x": 1500,
                 "y": 100
             },
-            "Visible": true,
-            "User hidden": false,
+            "Visible": false,
+            "User hidden": true,
             "Component border": [
                 {
                     "key": 0,
