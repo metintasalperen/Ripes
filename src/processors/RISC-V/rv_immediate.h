@@ -55,6 +55,30 @@ public:
                     return static_cast<unsigned>(signextend<int32_t, 12>(((instr.uValue() & 0xfe000000)) >> 20) |
                                                  ((instr.uValue() & 0xf80) >> 7));
                 }
+                case RVInstr::BLTF:
+                case RVInstr::BGTF:
+                case RVInstr::BLEF:
+                case RVInstr::BGEF:
+                case RVInstr::BEQF:
+                case RVInstr::BNEF:
+                case RVInstr::BLOF:
+                case RVInstr::BHIF:
+                case RVInstr::BLSF:
+                case RVInstr::BHSF: {
+                    /*unsigned int imm = ((instr.uValue() & 0b00000000001111111000000000000000) >> 10 |
+                                ((instr.uValue() & 0b00000000000000000000111110000000) >> 7));*/
+                    unsigned int imm_higher = (instr.uValue() & 0b00000000001111111000000000000000) >> 10;
+                    unsigned int imm_lower = (instr.uValue() & 0b00000000000000000000111110000000) >> 7;
+                    unsigned int sign = (imm_higher >> 11) & 1;
+                    unsigned int imm;
+                    if (sign == 1) {
+                        imm = imm_higher | imm_lower | 0xFFFFF000;
+                    } else {
+                        imm = imm_higher | imm_lower;
+                    }
+                    auto res = static_cast<unsigned>(signextend<int32_t, 12>(imm));
+                    return res;
+                }
                 default:
                     return unsigned(0xDEADBEEF);
             }

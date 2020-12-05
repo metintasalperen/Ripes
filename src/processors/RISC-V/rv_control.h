@@ -106,6 +106,9 @@ public:
                 case RVInstr::AUIPC: case RVInstr::JAL:
                 case RVInstr::BEQ: case RVInstr::BNE: case RVInstr::BLT:
                 case RVInstr::BGE: case RVInstr::BLTU: case RVInstr::BGEU:
+                case RVInstr::BLTF: case RVInstr::BGTF: case RVInstr::BLEF: case RVInstr::BGEF:
+                case RVInstr::BEQF: case RVInstr::BNEF: case RVInstr::BLOF: case RVInstr::BHIF:
+                case RVInstr::BLSF: case RVInstr::BHSF:
                     return AluSrc1::PC;
                 default:
                     return AluSrc1::REG1;
@@ -145,6 +148,12 @@ public:
             // Jump instructions
             case RVInstr::JALR:
             case RVInstr::JAL:
+                return AluSrc2::IMM;
+
+            // Branch with flags instructions
+            case RVInstr::BLTF: case RVInstr::BGTF: case RVInstr::BLEF: case RVInstr::BGEF:
+            case RVInstr::BEQF: case RVInstr::BNEF: case RVInstr::BLOF: case RVInstr::BHIF:
+            case RVInstr::BLSF: case RVInstr::BHSF:
                 return AluSrc2::IMM;
 
             default:
@@ -198,6 +207,10 @@ public:
                     return ALUOp::REM;
                 case RVInstr::REMU:
                     return ALUOp::REMU;
+                case RVInstr::BLTF: case RVInstr::BGTF: case RVInstr::BLEF: case RVInstr::BGEF:
+                case RVInstr::BEQF: case RVInstr::BNEF: case RVInstr::BLOF: case RVInstr::BHIF:
+                case RVInstr::BLSF: case RVInstr::BHSF:
+                    return ALUOp::ADD;
                 default: return ALUOp::NOP;
             }
         };

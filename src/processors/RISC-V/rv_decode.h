@@ -127,6 +127,29 @@ public:
                 }
                 break;
             }
+            // Branch with flags intruction - my addition
+            case 0b1100001: {
+                const auto fields = RVInstrParser::getParser()->decodeBFInstr(instr.uValue());
+                if (fields[3] == 0b000) {
+                    switch (fields[0]) {
+                        case 0b0000000: return RVInstr::BLTF;
+                        case 0b0000001: return RVInstr::BGTF;
+                        case 0b0000010: return RVInstr::BLEF;
+                        case 0b0000011: return RVInstr::BGEF;
+                        case 0b0000100: return RVInstr::BEQF;
+                        case 0b0000101: return RVInstr::BNEF;
+                    }
+                }
+                else if (fields[3] == 0b001) {
+                    switch (fields[0]) {
+                        case 0b0000000: return RVInstr::BLOF;
+                        case 0b0000001: return RVInstr::BHIF;
+                        case 0b0000010: return RVInstr::BLSF;
+                        case 0b0000011: return RVInstr::BHSF;
+                    }
+                }
+                break;
+            }
 
 
             default:
