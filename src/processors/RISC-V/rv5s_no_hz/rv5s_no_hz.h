@@ -11,7 +11,7 @@
 // Functional units
 #include "../riscv.h"
 #include "../rv5s/rv5s_forwardingunit.h"
-#include "../rv_alu.h"
+#include "../rv5s/rv5s_alu.h"
 #include "../rv_branch.h"
 #include "../rv5s/rv5s_control.h"
 #include "../rv_decode.h"
@@ -248,7 +248,7 @@ public:
 
     // Design subcomponents
     SUBCOMPONENT(registerFile, RegisterFile<true>);
-    SUBCOMPONENT(alu, ALU);
+    SUBCOMPONENT(alu, RV5S_ALU);
     SUBCOMPONENT(control, RV5S_CONTROL);
     SUBCOMPONENT(immediate, Immediate);
     SUBCOMPONENT(decode, Decode);
