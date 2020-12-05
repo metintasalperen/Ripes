@@ -48,6 +48,7 @@ public:
     std::vector<uint32_t> decodeSInstr(uint32_t instr) const { return m_decodeSInstr(instr); }
     std::vector<uint32_t> decodeRInstr(uint32_t instr) const { return m_decodeRInstr(instr); }
     std::vector<uint32_t> decodeBInstr(uint32_t instr) const { return m_decodeBInstr(instr); }
+    std::vector<uint32_t> decodeBFInstr(uint32_t instr) const { return m_decodeBInstr(instr); }
 
     QString disassemble(std::weak_ptr<const Program> program, AddrOffsetMap& addrOffsetMap) const;
     QString binarize(std::weak_ptr<const Program> program, AddrOffsetMap& addrOffsetMap) const;
@@ -68,9 +69,11 @@ private:
     decode_functor m_decodeSInstr;
     decode_functor m_decodeRInstr;
     decode_functor m_decodeBInstr;
+    decode_functor m_decodeBFInstr;
 
     // String generating functions
     QString generateBranchString(uint32_t instr, uint32_t address, const Program& program) const;
+    QString generateBranchFlagString(uint32_t instr, uint32_t address, const Program& program) const;
     QString generateLuiString(uint32_t instr) const;
     QString generateAuipcString(uint32_t instr) const;
     QString generateJalString(uint32_t instr, uint32_t address, const Program& program) const;

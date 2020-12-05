@@ -59,6 +59,8 @@ public:
     std::vector<::vsrtl::VSRTL_VT_U> decodeRInstr(::vsrtl::VSRTL_VT_U instr) const { return m_decodeRInstr(instr); }
     std::vector<::vsrtl::VSRTL_VT_U> decodeBInstr(::vsrtl::VSRTL_VT_U instr) const { return m_decodeBInstr(instr); }
 
+    std::vector<::vsrtl::VSRTL_VT_U> decodeBFInstr(::vsrtl::VSRTL_VT_U instr) const { return m_decodeBFInstr(instr); }
+
 private:
     RVInstrParser() {
         m_decodeRInstr = generateInstrParser(std::vector<int>{5, 3, 5, 5, 7});  // from LSB to MSB
@@ -67,6 +69,8 @@ private:
         m_decodeBInstr = generateInstrParser(std::vector<int>{1, 4, 3, 5, 5, 6, 1});
         m_decodeUInstr = generateInstrParser(std::vector<int>{5, 20});
         m_decodeJInstr = generateInstrParser(std::vector<int>{5, 8, 1, 10, 1});
+
+        m_decodeBFInstr = generateInstrParser(std::vector<int>{5, 3, 7, 3, 7});  // imm, funct3, imm, don't care, funct 7
     }
     decode_functor m_decodeUInstr;
     decode_functor m_decodeJInstr;
@@ -74,6 +78,8 @@ private:
     decode_functor m_decodeSInstr;
     decode_functor m_decodeRInstr;
     decode_functor m_decodeBInstr;
+
+    decode_functor m_decodeBFInstr;  // branch with flags
 };
 
 }  // namespace Ripes

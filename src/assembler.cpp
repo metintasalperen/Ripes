@@ -113,6 +113,17 @@ const QStringList DataAssemblerDirectives = QStringList() << ".word"
                                                           << ".long";
 const static QMap<QString, size_t> DataAssemblerSizes{{".word", 4},  {".half", 2},  {".short", 2}, {".byte", 1},
                                                       {".2byte", 2}, {".4byte", 4}, {".long", 4}};
+
+const QStringList branchFlagInstructions = QStringList() << "bltf"
+                                                         << "bgtf"
+                                                         << "blef"
+                                                         << "bgef"
+                                                         << "beqf"
+                                                         << "bnef"
+                                                         << "blof"
+                                                         << "bhif"
+                                                         << "blsf"
+                                                         << "bgsf";
 }  // namespace
 
 Assembler::Assembler() {}
@@ -346,6 +357,61 @@ QByteArray Assembler::assembleBranchInstruction(const QStringList& fields, int r
                          (offset & 0x1000) << 19 | funct3 << 12);
 }
 
+QByteArray Assembler::assembleBranchFlagInstruction(const QStringList& fields, int row) {
+    // calculate offset
+    Q_ASSERT(m_labelPosMap.count(fields[1]));
+    
+    unsigned int offset = m_labelPosMap[fields[1]];
+    offset = offset - row * 4;  // byte-wize addressing
+    uint32_t funct3 = 0;
+    uint32_t funct7 = 0;
+    uint32_t not_care = 0b000;
+    if (fields[0] == "bltf") {
+        funct3 = 0b000;
+        funct7 = 0b0000000;
+    } else if (fields[0] == "bgtf") {
+        funct3 = 0b000;
+        funct7 = 0b0000001;
+    } else if (fields[0] == "blef") {
+        funct3 = 0b000;
+        funct7 = 0b0000010;
+    } else if (fields[0] == "bgef") {
+        funct3 = 0b000;
+        funct7 = 0b0000011;
+    } else if (fields[0] == "beqf") {
+        funct3 = 0b000;
+        funct7 = 0b0000100;
+    } else if (fields[0] == "bnef") {
+        funct3 = 0b000;
+        funct7 = 0b0000101;
+    } else if (fields[0] == "blof") {
+        funct3 = 0b001;
+        funct7 = 0b0000000;
+    } else if (fields[0] == "bhif") {
+        funct3 = 0b001;
+        funct7 = 0b0000001;
+    } else if (fields[0] == "blsf") {
+        funct3 = 0b001;
+        funct7 = 0b0000010;
+    } else if (fields[0] == "bhsf") {
+        funct3 = 0b001;
+        funct7 = 0b0000011;
+    } else {
+        m_error = true;
+        Q_ASSERT(false);
+    }
+    unsigned int offset_lower, offset_higher;
+    offset_lower = offset & 0b000000011111;
+    offset_lower <<= 7;
+    offset_higher = offset & 0b111111100000;
+    offset_higher <<= 10;
+
+    auto res = uintToByteArr(instrType::BRANCHFLAG | funct3 << 12 | funct7 << 25 | not_care << 22 |
+        offset_lower | 
+        offset_higher);
+    return res;
+}
+
 QByteArray Assembler::assembleAuipcInstruction(const QStringList& fields, int) {
     bool canConvert;
     int imm = getImmediate(fields[2], canConvert) << 12;
@@ -412,6 +478,8 @@ void Assembler::assembleInstruction(const QStringList& fields, int row) {
         m_textSegment.append(uintToByteArr(instrType::JAL | getRegisterNumber(fields[1]) << 7 | imm));
     } else if (instruction == "ecall") {
         m_textSegment.append(uintToByteArr(instrType::ECALL));
+    } else if (branchFlagInstructions.contains(instruction)) {
+        m_textSegment.append(assembleBranchFlagInstruction(fields, row));
     } else {
         //  Unknown instruction
         m_error = true;

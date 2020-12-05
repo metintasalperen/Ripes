@@ -54,5 +54,7 @@ private:
     QByteArray assembleBranchInstruction(const QStringList& fields, int row);
     QByteArray assembleAuipcInstruction(const QStringList& fields, int row);
     QByteArray assembleJalrInstruction(const QStringList& fields, int row);
+
+    QByteArray assembleBranchFlagInstruction(const QStringList& fields, int row);
 };
 }  // namespace Ripes

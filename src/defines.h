@@ -81,7 +81,8 @@ enum {
     OP = 0b0110011,
     ECALL = 0b1110011,
     AUIPC = 0b0010111,
-    INVALID = 0b0
+    INVALID = 0b0,
+    BRANCHFLAG = 0b1100001
 };
 }
 

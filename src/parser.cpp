@@ -20,6 +20,7 @@ Parser::Parser() {
     m_decodeBInstr = generateWordParser(vector<int>{1, 4, 3, 5, 5, 6, 1});
     m_decodeUInstr = generateWordParser(vector<int>{5, 20});
     m_decodeJInstr = generateWordParser(vector<int>{5, 8, 1, 10, 1});
+    m_decodeBFInstr = generateWordParser(vector<int>{5, 3, 7, 3, 7});
 }
 
 Parser::~Parser() {}
@@ -161,11 +162,67 @@ QString Parser::disassemble(std::weak_ptr<const Program> program, uint32_t instr
                 return generateOpInstrString(instr);
             case instrType::ECALL:
                 return generateEcallString(instr);
+            case instrType::BRANCHFLAG:
+                return generateBranchFlagString(instr, address, *sp);
             default:
                 return QString("Invalid instruction");
         }
     }
 }
+
+QString Parser::generateBranchFlagString(uint32_t instr, uint32_t address, const Program& program) const {
+    std::vector<uint32_t> fields = decodeBFInstr(instr);
+    auto funct7 = (instr & 0b11111110000000000000000000000000) >> 25;
+    auto funct3 = (instr & 0b00000000000000000111000000000000) >> 12;
+    auto not_care = 0b000;
+
+    unsigned int imm_higher = (instr & 0b00000000001111111000000000000000) >> 10;
+    unsigned int imm_lower = (instr & 0b00000000000000000000111110000000) >> 7;
+    unsigned int sign = (imm_higher >> 11) & 1;
+    int imm;
+    if (sign == 1) {
+        imm = imm_higher | imm_lower | 0xFFFFF000;
+    } else {
+        imm = imm_higher | imm_lower;
+    }
+    auto branch_addr = imm + address;
+
+    QString brStr;
+    if (funct3 == 0b000) {
+        if (funct7 == 0b0000000) {
+            brStr = QString("bltf %1").arg(branch_addr);
+        } else if (funct7 == 0b0000001) {
+            brStr = QString("bgtf %1").arg(branch_addr);
+        } else if (funct7 == 0b0000010) {
+            brStr = QString("blef %1").arg(branch_addr);
+        } else if (funct7 == 0b0000011) {
+            brStr = QString("bgef %1").arg(branch_addr);
+        } else if (funct7 == 0b0000100) {
+            brStr = QString("beqf %1").arg(branch_addr);
+        } else if (funct7 == 0b0000101) {
+            brStr = QString("bnef %1").arg(branch_addr);
+        }
+    }
+    if (funct3 == 0b001) {
+        if (funct7 == 0b0000000) {
+            brStr = QString("blof %1").arg(branch_addr);
+        } else if (funct7 == 0b0000001) {
+            brStr = QString("bhif %1").arg(branch_addr);
+        } else if (funct7 == 0b0000010) {
+            brStr = QString("blsf %1").arg(branch_addr);
+        } else if (funct7 == 0b0000011) {
+            brStr = QString("bhsf %1").arg(branch_addr);
+        }
+    }
+
+    QString landingPadSymbol;
+    if (program.symbols.count(branch_addr)) {
+        landingPadSymbol = " <" + program.symbols.at(branch_addr) + ">";
+    }
+
+    return brStr + landingPadSymbol;
+}
+
 QString Parser::generateEcallString(uint32_t) const {
     return QString("ecall");
 }

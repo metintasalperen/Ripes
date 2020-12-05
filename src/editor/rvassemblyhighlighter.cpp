@@ -396,6 +396,27 @@ void RVAssemblyHighlighter::createSyntaxRules() {
         m_syntaxRules.insert(name, QList<SyntaxRule>() << rule);
     }
 
+    // Branch with flag instructions
+    types.clear();
+    names.clear();
+    types << FieldType(Type::Offset, 0, 0, this);
+    names << "bltf"
+          << "bgtf"
+          << "blef"
+          << "bgef"
+          << "beqf"
+          << "bnef"
+          << "blof"
+          << "bhif"
+          << "blsf"
+          << "bhsf";
+    for (const auto& name : names) {
+        rule.instr = name;
+        rule.fields = 2;
+        rule.inputs = types;
+        m_syntaxRules.insert(name, QList<SyntaxRule>() << rule);
+    }
+
     // Branch pseudo-instructions
     types.clear();
     names.clear();
