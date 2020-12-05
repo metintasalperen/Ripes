@@ -21,7 +21,7 @@
 #include "../rv_registerfile.h"
 
 // Stage separating registers
-#include "../rv5s/rv5s_idex.h"
+#include "rv5s_no_hz_idex.h"
 #include "../rv5s_no_fw_hz/rv5s_no_fw_hz_exmem.h"
 #include "../rv5s_no_fw_hz/rv5s_no_fw_hz_ifid.h"
 #include "../rv5s_no_fw_hz/rv5s_no_fw_hz_memwb.h"
@@ -264,7 +264,7 @@ public:
 
     // Stage seperating registers
     SUBCOMPONENT(ifid_reg, IFID);
-    SUBCOMPONENT(idex_reg, RV5S_IDEX);
+    SUBCOMPONENT(idex_reg, RV5S_NO_HZ_IDEX);
     SUBCOMPONENT(exmem_reg, EXMEM);
     SUBCOMPONENT(memwb_reg, MEMWB);
 
