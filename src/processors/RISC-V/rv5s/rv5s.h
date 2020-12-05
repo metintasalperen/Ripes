@@ -18,6 +18,7 @@
 #include "../rv_immediate.h"
 #include "../rv_memory.h"
 #include "../rv_registerfile.h"
+#include "../rv_alu_flag_reg.h"
 
 // Stage separating registers
 #include "../rv5s_no_fw_hz/rv5s_no_fw_hz_ifid.h"
@@ -55,6 +56,13 @@ public:
         ifid_clear_or->out >> ifid_reg->clear;
 
         control->do_jump >> *controlflow_or->in[1];
+
+        1 >> alu_flag_reg->enable;
+        0 >> alu_flag_reg->clear;
+        alu->zero_flag >> alu_flag_reg->zero_flag_in;
+        alu->sign_flag >> alu_flag_reg->sign_flag_in;
+        alu->overflow_flag >> alu_flag_reg->overflow_flag_in;
+        alu->carry_flag >> alu_flag_reg->carry_flag_in;
 
         // -----------------------------------------------------------------------
         // Program counter
@@ -284,13 +292,12 @@ public:
     SUBCOMPONENT(decode, Decode);
     SUBCOMPONENT(branch, Branch);
     SUBCOMPONENT(pc_4, Adder<RV_REG_WIDTH>);
-    SUBCOMPONENT(jal_jalr_src, TYPE(EnumMultiplexer<JalJalrSrc, RV_REG_WIDTH>));
     SUBCOMPONENT(un_br_addr_calc, Adder<RV_REG_WIDTH>);
-    SUBCOMPONENT(un_br_alu_src, TYPE(EnumMultiplexer<UnBrAluSrc, RV_REG_WIDTH>));
     SUBCOMPONENT(ifid_clear_or, TYPE(Or<1, 2>));
 
     // Registers
     SUBCOMPONENT(pc_reg, RegisterClEn<RV_REG_WIDTH>);
+    SUBCOMPONENT(alu_flag_reg, ALU_FLAG_REG);
 
     // Stage seperating registers
     SUBCOMPONENT(ifid_reg, IFID);
@@ -305,6 +312,8 @@ public:
     SUBCOMPONENT(alu_op2_src, TYPE(EnumMultiplexer<AluSrc2, RV_REG_WIDTH>));
     SUBCOMPONENT(reg1_fw_src, TYPE(EnumMultiplexer<ForwardingSrc, RV_REG_WIDTH>));
     SUBCOMPONENT(reg2_fw_src, TYPE(EnumMultiplexer<ForwardingSrc, RV_REG_WIDTH>));
+    SUBCOMPONENT(jal_jalr_src, TYPE(EnumMultiplexer<JalJalrSrc, RV_REG_WIDTH>));
+    SUBCOMPONENT(un_br_alu_src, TYPE(EnumMultiplexer<UnBrAluSrc, RV_REG_WIDTH>));
 
     // Memories
     SUBCOMPONENT(instr_mem, TYPE(ROM<RV_REG_WIDTH, RV_INSTR_WIDTH>));
