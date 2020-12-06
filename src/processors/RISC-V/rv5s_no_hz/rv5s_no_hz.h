@@ -10,7 +10,7 @@
 
 // Functional units
 #include "../riscv.h"
-#include "rv5s_no_hz_forwardingunit.h"
+#include "../rv5s/rv5s_forwardingunit.h"
 #include "../rv5s/rv5s_alu.h"
 #include "../rv_branch.h"
 #include "../rv5s/rv5s_control.h"
@@ -36,7 +36,6 @@ class RV5S_NO_HZ : public RipesProcessor {
 public:
     enum Stage { IF = 0, ID = 1, EX = 2, MEM = 3, WB = 4, STAGECOUNT };
     RV5S_NO_HZ() : RipesProcessor("5-Stage RISC-V Processor without forwarding") {
-        registerFile->r1_out >> jal_jalr_src->get(JalJalrSrc::JALR);
         ifid_reg->pc_out >> jal_jalr_src->get(JalJalrSrc::JAL);
         control->do_jalr >> jal_jalr_src->select;
 
@@ -77,6 +76,22 @@ public:
         branch_with_flag->branch_taken >> *br_flag_and->in[0];
 
         br_flag_and->out >> *efsc_or->in[2];
+
+        exmem_reg->mem_op_out >> funit->mem_op;
+        decode->r1_reg_idx >> funit->decode_reg1_idx;
+        idex_reg->wr_reg_idx_out >> funit->ex_reg_wr_idx;
+        idex_reg->reg_do_write_out >> funit->ex_reg_wr_en;
+
+        funit->alures_mem_ctrl >> alures_mem_src->select;
+        exmem_reg->alures_out >> alures_mem_src->get(LoadOp::Other);
+        data_mem->data_out >> alures_mem_src->get(LoadOp::Load);
+
+        registerFile->r1_out >> un_br_fw_src->get(UnBrFwSrc::IdStage);
+        alu->res >> un_br_fw_src->get(UnBrFwSrc::ExStage);
+        alures_mem_src->out >> un_br_fw_src->get(UnBrFwSrc::MemStage);
+        reg_wr_src->out >> un_br_fw_src->get(UnBrFwSrc::WbStage);
+        funit->un_br_reg1_ctrl >> un_br_fw_src->select;
+        un_br_fw_src->out >> jal_jalr_src->get(JalJalrSrc::JALR);
 
         // -----------------------------------------------------------------------
         // Program counter
@@ -300,13 +315,15 @@ public:
     SUBCOMPONENT(alu_op2_src, TYPE(EnumMultiplexer<AluSrc2, RV_REG_WIDTH>));
     SUBCOMPONENT(reg1_fw_src, TYPE(EnumMultiplexer<ForwardingSrc, RV_REG_WIDTH>));
     SUBCOMPONENT(reg2_fw_src, TYPE(EnumMultiplexer<ForwardingSrc, RV_REG_WIDTH>));
+    SUBCOMPONENT(alures_mem_src, TYPE(EnumMultiplexer<LoadOp, RV_REG_WIDTH>));
+    SUBCOMPONENT(un_br_fw_src, TYPE(EnumMultiplexer<UnBrFwSrc, RV_REG_WIDTH>));
 
     // Memories
     SUBCOMPONENT(instr_mem, TYPE(ROM<RV_REG_WIDTH, RV_INSTR_WIDTH>));
     SUBCOMPONENT(data_mem, TYPE(RVMemory<RV_REG_WIDTH, RV_REG_WIDTH>));
 
     // Forwarding unit
-    SUBCOMPONENT(funit, RV5S_NO_HZ_ForwardingUnit);
+    SUBCOMPONENT(funit, ForwardingUnit);
 
     // Gates
     // True if branch instruction and branch taken

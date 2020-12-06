@@ -295,28 +295,56 @@
                             "alures_in",
                             "exmem_reg"
                         ]
+                    },
+                    {
+                        "key": 3,
+                        "value": [
+                            "in_1",
+                            "un_br_fw_src"
+                        ]
                     }
                 ],
                 "points": [
                     {
-                        "key": 3,
+                        "key": 4,
                         "value": {
                             "x": 1430,
                             "y": 634
                         }
                     },
                     {
-                        "key": 4,
+                        "key": 5,
                         "value": {
                             "x": 1430,
                             "y": 1080
                         }
                     },
                     {
-                        "key": 5,
+                        "key": 6,
                         "value": {
                             "x": 880,
                             "y": 1080
+                        }
+                    },
+                    {
+                        "key": 7,
+                        "value": {
+                            "x": 1430,
+                            "y": 1024
+                        }
+                    },
+                    {
+                        "key": 8,
+                        "value": {
+                            "x": 480,
+                            "y": 1024
+                        }
+                    },
+                    {
+                        "key": 9,
+                        "value": {
+                            "x": 480,
+                            "y": 1122
                         }
                     }
                 ],
@@ -327,10 +355,6 @@
                     },
                     {
                         "first": 0,
-                        "second": 3
-                    },
-                    {
-                        "first": 3,
                         "second": 4
                     },
                     {
@@ -339,7 +363,27 @@
                     },
                     {
                         "first": 5,
+                        "second": 6
+                    },
+                    {
+                        "first": 6,
                         "second": 1
+                    },
+                    {
+                        "first": 4,
+                        "second": 7
+                    },
+                    {
+                        "first": 7,
+                        "second": 8
+                    },
+                    {
+                        "first": 8,
+                        "second": 9
+                    },
+                    {
+                        "first": 9,
+                        "second": 3
                     }
                 ]
             },
@@ -373,7 +417,7 @@
                         "key": 3,
                         "value": {
                             "x": 1483,
-                            "y": 1014
+                            "y": 1028
                         }
                     }
                 ],
@@ -422,7 +466,7 @@
                         "key": 3,
                         "value": {
                             "x": 1468,
-                            "y": 1040
+                            "y": 1054
                         }
                     }
                 ],
@@ -471,7 +515,7 @@
                         "key": 3,
                         "value": {
                             "x": 1454,
-                            "y": 1064
+                            "y": 1078
                         }
                     }
                 ],
@@ -520,7 +564,7 @@
                         "key": 3,
                         "value": {
                             "x": 1440,
-                            "y": 1090
+                            "y": 1104
                         }
                     }
                 ],
@@ -1044,7 +1088,7 @@
             },
             "Pos": {
                 "x": 1570,
-                "y": 984
+                "y": 1000
             },
             "Visible": true,
             "User hidden": false,
@@ -1578,6 +1622,279 @@
             },
             "Indicators": []
         },
+        "alures_mem_src": {
+            "Top name": "alures_mem_src",
+            "Rect": {
+                "x": 0,
+                "y": 0,
+                "w": 2,
+                "h": 4
+            },
+            "select": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "select"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "REG1"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "in_1": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "in_1"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x00000000"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "in_0": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "in_0"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x00000000"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "out": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "out"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x00000000"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "out_out_wire": {
+                "Parent": "5-Stage RISC-V Processor without forwarding",
+                "From port": {
+                    "first": 0,
+                    "second": [
+                        "out",
+                        "alures_mem_src"
+                    ]
+                },
+                "To ports": [
+                    {
+                        "key": 1,
+                        "value": [
+                            "in_2",
+                            "un_br_fw_src"
+                        ]
+                    }
+                ],
+                "points": [
+                    {
+                        "key": 2,
+                        "value": {
+                            "x": 1764,
+                            "y": 936
+                        }
+                    },
+                    {
+                        "key": 3,
+                        "value": {
+                            "x": 1370,
+                            "y": 936
+                        }
+                    },
+                    {
+                        "key": 4,
+                        "value": {
+                            "x": 1370,
+                            "y": 1212
+                        }
+                    },
+                    {
+                        "key": 5,
+                        "value": {
+                            "x": 474,
+                            "y": 1212
+                        }
+                    },
+                    {
+                        "key": 6,
+                        "value": {
+                            "x": 474,
+                            "y": 1142
+                        }
+                    }
+                ],
+                "wires": [
+                    {
+                        "first": 0,
+                        "second": 2
+                    },
+                    {
+                        "first": 2,
+                        "second": 3
+                    },
+                    {
+                        "first": 3,
+                        "second": 4
+                    },
+                    {
+                        "first": 4,
+                        "second": 5
+                    },
+                    {
+                        "first": 5,
+                        "second": 6
+                    },
+                    {
+                        "first": 6,
+                        "second": 1
+                    }
+                ]
+            },
+            "Pos": {
+                "x": 1720,
+                "y": 828
+            },
+            "Visible": true,
+            "User hidden": false,
+            "Component border": [
+                {
+                    "key": 0,
+                    "value": [
+                        {
+                            "key": "in_0",
+                            "value": 1
+                        },
+                        {
+                            "key": "in_1",
+                            "value": 3
+                        }
+                    ]
+                },
+                {
+                    "key": 1,
+                    "value": [
+                        {
+                            "key": "out",
+                            "value": 2
+                        }
+                    ]
+                },
+                {
+                    "key": 2,
+                    "value": [
+                        {
+                            "key": "select",
+                            "value": 1
+                        }
+                    ]
+                }
+            ],
+            "Name label": {
+                "Visible": false,
+                "Bold": false,
+                "Italic": false,
+                "PtSize": 12,
+                "Text": {
+                    "str": "alu_op1_src"
+                },
+                "Pos": {
+                    "x": 14.0,
+                    "y": -19.0
+                },
+                "Alignment": 132
+            },
+            "Indicators": []
+        },
         "br_and": {
             "Top name": "br_and",
             "Rect": {
@@ -1712,7 +2029,7 @@
                         "key": 3,
                         "value": {
                             "x": 1030,
-                            "y": 150
+                            "y": 136
                         }
                     }
                 ],
@@ -1943,7 +2260,7 @@
                     "value": [
                         {
                             "key": "out",
-                            "value": 2
+                            "value": 1
                         }
                     ]
                 }
@@ -2435,14 +2752,14 @@
                         "key": 2,
                         "value": {
                             "x": 1982,
-                            "y": 954
+                            "y": 968
                         }
                     },
                     {
                         "key": 3,
                         "value": {
                             "x": 1508,
-                            "y": 954
+                            "y": 968
                         }
                     },
                     {
@@ -2485,7 +2802,7 @@
             },
             "Pos": {
                 "x": 1770,
-                "y": 984
+                "y": 1000
             },
             "Visible": true,
             "User hidden": false,
@@ -3361,21 +3678,21 @@
                         "key": 6,
                         "value": {
                             "x": 836,
-                            "y": 140
+                            "y": 126
                         }
                     },
                     {
                         "key": 7,
                         "value": {
                             "x": 1260,
-                            "y": 140
+                            "y": 126
                         }
                     },
                     {
                         "key": 9,
                         "value": {
                             "x": 1260,
-                            "y": 164
+                            "y": 150
                         }
                     }
                 ],
@@ -3777,14 +4094,14 @@
                         "key": 4,
                         "value": {
                             "x": 56,
-                            "y": 130
+                            "y": 116
                         }
                     },
                     {
                         "key": 5,
                         "value": {
                             "x": 1354,
-                            "y": 130
+                            "y": 116
                         }
                     }
                 ],
@@ -3805,7 +4122,7 @@
             },
             "Pos": {
                 "x": 1300,
-                "y": 136
+                "y": 122
             },
             "Visible": true,
             "User hidden": false,
@@ -5084,13 +5401,47 @@
                             "mem_read_in",
                             "memwb_reg"
                         ]
+                    },
+                    {
+                        "key": 2,
+                        "value": [
+                            "in_0",
+                            "alures_mem_src"
+                        ]
                     }
                 ],
-                "points": [],
+                "points": [
+                    {
+                        "key": 3,
+                        "value": {
+                            "x": 1814,
+                            "y": 730
+                        }
+                    },
+                    {
+                        "key": 4,
+                        "value": {
+                            "x": 1702,
+                            "y": 730
+                        }
+                    }
+                ],
                 "wires": [
                     {
                         "first": 0,
                         "second": 1
+                    },
+                    {
+                        "first": 0,
+                        "second": 3
+                    },
+                    {
+                        "first": 3,
+                        "second": 4
+                    },
+                    {
+                        "first": 4,
+                        "second": 2
                     }
                 ]
             },
@@ -5439,39 +5790,61 @@
                             "rd_reg1_idx_in",
                             "idex_reg"
                         ]
+                    },
+                    {
+                        "key": 3,
+                        "value": [
+                            "decode_reg1_idx",
+                            "funit"
+                        ]
                     }
                 ],
                 "points": [
                     {
-                        "key": 3,
+                        "key": 4,
                         "value": {
                             "x": 602,
                             "y": 732
                         }
                     },
                     {
-                        "key": 4,
+                        "key": 5,
                         "value": {
                             "x": 602,
                             "y": 606
+                        }
+                    },
+                    {
+                        "key": 6,
+                        "value": {
+                            "x": 602,
+                            "y": 898
                         }
                     }
                 ],
                 "wires": [
                     {
-                        "first": 3,
+                        "first": 4,
                         "second": 2
                     },
                     {
                         "first": 0,
+                        "second": 5
+                    },
+                    {
+                        "first": 5,
+                        "second": 1
+                    },
+                    {
+                        "first": 5,
                         "second": 4
                     },
                     {
                         "first": 4,
-                        "second": 1
+                        "second": 6
                     },
                     {
-                        "first": 4,
+                        "first": 6,
                         "second": 3
                     }
                 ]
@@ -10365,7 +10738,7 @@
                         "key": 4,
                         "value": {
                             "x": 1668,
-                            "y": 900
+                            "y": 914
                         }
                     }
                 ],
@@ -10425,7 +10798,7 @@
                         "key": 4,
                         "value": {
                             "x": 1836,
-                            "y": 914
+                            "y": 928
                         }
                     }
                 ],
@@ -10599,64 +10972,98 @@
                             "alures_in",
                             "memwb_reg"
                         ]
+                    },
+                    {
+                        "key": 5,
+                        "value": [
+                            "in_1",
+                            "alures_mem_src"
+                        ]
                     }
                 ],
                 "points": [
                     {
-                        "key": 5,
+                        "key": 6,
                         "value": {
-                            "x": 994,
+                            "x": 1008,
                             "y": 676
                         }
                     },
                     {
-                        "key": 6,
+                        "key": 7,
                         "value": {
                             "x": 1640,
                             "y": 550
                         }
                     },
                     {
-                        "key": 7,
-                        "value": {
-                            "x": 994,
-                            "y": 830
-                        }
-                    },
-                    {
                         "key": 8,
                         "value": {
-                            "x": 994,
-                            "y": 620
+                            "x": 1008,
+                            "y": 830
                         }
                     },
                     {
                         "key": 9,
                         "value": {
-                            "x": 1640,
-                            "y": 634
+                            "x": 1008,
+                            "y": 620
                         }
                     },
                     {
                         "key": 10,
                         "value": {
                             "x": 1640,
+                            "y": 634
+                        }
+                    },
+                    {
+                        "key": 11,
+                        "value": {
+                            "x": 1640,
                             "y": 830
+                        }
+                    },
+                    {
+                        "key": 12,
+                        "value": {
+                            "x": 1640,
+                            "y": 872
                         }
                     }
                 ],
                 "wires": [
                     {
-                        "first": 7,
-                        "second": 5
+                        "first": 8,
+                        "second": 6
                     },
                     {
                         "first": 0,
-                        "second": 9
+                        "second": 10
+                    },
+                    {
+                        "first": 7,
+                        "second": 4
+                    },
+                    {
+                        "first": 11,
+                        "second": 8
+                    },
+                    {
+                        "first": 10,
+                        "second": 3
+                    },
+                    {
+                        "first": 10,
+                        "second": 11
                     },
                     {
                         "first": 6,
-                        "second": 4
+                        "second": 2
+                    },
+                    {
+                        "first": 6,
+                        "second": 9
                     },
                     {
                         "first": 10,
@@ -10664,27 +11071,15 @@
                     },
                     {
                         "first": 9,
-                        "second": 3
-                    },
-                    {
-                        "first": 9,
-                        "second": 10
-                    },
-                    {
-                        "first": 5,
-                        "second": 2
-                    },
-                    {
-                        "first": 5,
-                        "second": 8
-                    },
-                    {
-                        "first": 9,
-                        "second": 6
-                    },
-                    {
-                        "first": 8,
                         "second": 1
+                    },
+                    {
+                        "first": 11,
+                        "second": 12
+                    },
+                    {
+                        "first": 12,
+                        "second": 5
                     }
                 ]
             },
@@ -10779,36 +11174,58 @@
                             "op",
                             "data_mem"
                         ]
+                    },
+                    {
+                        "key": 2,
+                        "value": [
+                            "mem_op",
+                            "funit"
+                        ]
                     }
                 ],
                 "points": [
                     {
-                        "key": 2,
+                        "key": 3,
                         "value": {
-                            "x": 1626,
+                            "x": 1612,
                             "y": 382
                         }
                     },
                     {
-                        "key": 3,
+                        "key": 4,
                         "value": {
-                            "x": 1626,
+                            "x": 1612,
                             "y": 620
+                        }
+                    },
+                    {
+                        "key": 5,
+                        "value": {
+                            "x": 1612,
+                            "y": 870
                         }
                     }
                 ],
                 "wires": [
                     {
-                        "first": 2,
+                        "first": 0,
                         "second": 3
                     },
                     {
-                        "first": 0,
-                        "second": 2
+                        "first": 3,
+                        "second": 4
+                    },
+                    {
+                        "first": 4,
+                        "second": 1
                     },
                     {
                         "first": 3,
-                        "second": 1
+                        "second": 5
+                    },
+                    {
+                        "first": 5,
+                        "second": 2
                     }
                 ]
             },
@@ -10950,7 +11367,71 @@
                 "x": 0,
                 "y": 0,
                 "w": 8,
-                "h": 5
+                "h": 6
+            },
+            "mem_op": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "mem_op"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": ""
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "decode_reg1_idx": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "decode_reg1_idx"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": ""
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
             },
             "wb_reg_wr_en": {
                 "Label": {
@@ -11056,6 +11537,70 @@
                     "PtSize": 8,
                     "Text": {
                         "str": "mem_reg_wr_idx"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x05"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "ex_reg_wr_en": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "ex_reg_wr_en"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x0"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "ex_reg_wr_idx": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "ex_reg_wr_idx"
                     },
                     "Pos": {
                         "x": 0.0,
@@ -11208,6 +11753,70 @@
                 "PortWidthVisible": true,
                 "UserHidden": false
             },
+            "un_br_reg1_ctrl": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "un_br_reg1_ctrl"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": ""
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "alures_mem_ctrl": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "alures_mem_ctrl"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": ""
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
             "alu_reg2_forwarding_ctrl_out_wire": {
                 "Parent": "5-Stage RISC-V Processor without forwarding",
                 "From port": {
@@ -11272,8 +11881,117 @@
                     }
                 ]
             },
+            "alures_mem_ctrl_out_wire": {
+                "Parent": "5-Stage RISC-V Processor without forwarding",
+                "From port": {
+                    "first": 0,
+                    "second": [
+                        "alures_mem_ctrl_out_wire",
+                        "funit"
+                    ]
+                },
+                "To ports": [
+                    {
+                        "key": 1,
+                        "value": [
+                            "select",
+                            "alures_mem_src"
+                        ]
+                    }
+                ],
+                "points": [
+                    {
+                        "key": 2,
+                        "value": {
+                            "x": 1700,
+                            "y": 838
+                        }
+                    },
+                    {
+                        "key": 3,
+                        "value": {
+                            "x": 1700,
+                            "y": 810
+                        }
+                    }
+                ],
+                "wires": [
+                    {
+                        "first": 0,
+                        "second": 2
+                    },
+                    {
+                        "first": 2,
+                        "second": 3
+                    },
+                    {
+                        "first": 3,
+                        "second": 1
+                    }
+                ]
+            },
+            "un_br_reg1_ctrl_out_wire": {
+                "Parent": "5-Stage RISC-V Processor without forwarding",
+                "From port": {
+                    "first": 0,
+                    "second": [
+                        "un_br_reg1_ctrl_out_wire",
+                        "funit"
+                    ]
+                },
+                "To ports": [
+                    {
+                        "key": 1,
+                        "value": [
+                            "select",
+                            "un_br_fw_src"
+                        ]
+                    }
+                ],
+                "points": [
+                    {
+                        "key": 2,
+                        "value": {
+                            "x": 798,
+                            "y": 844
+                        }
+                    },
+                    {
+                        "key": 3,
+                        "value": {
+                            "x": 798,
+                            "y": 1014
+                        }
+                    },
+                    {
+                        "key": 4,
+                        "value": {
+                            "x": 514,
+                            "y": 1014
+                        }
+                    }
+                ],
+                "wires": [
+                    {
+                        "first": 0,
+                        "second": 2
+                    },
+                    {
+                        "first": 2,
+                        "second": 3
+                    },
+                    {
+                        "first": 3,
+                        "second": 4
+                    },
+                    {
+                        "first": 4,
+                        "second": 1
+                    }
+                ]
+            },
             "Pos": {
-                "x": 1008,
+                "x": 1022,
                 "y": 858
             },
             "Visible": true,
@@ -11284,11 +12002,23 @@
                     "value": [
                         {
                             "key": "id_reg1_idx",
-                            "value": 1
+                            "value": 2
                         },
                         {
                             "key": "id_reg2_idx",
+                            "value": 1
+                        },
+                        {
+                            "key": "decode_reg1_idx",
                             "value": 3
+                        },
+                        {
+                            "key": "ex_reg_wr_idx",
+                            "value": 4
+                        },
+                        {
+                            "key": "ex_reg_wr_en",
+                            "value": 5
                         }
                     ]
                 },
@@ -11297,19 +12027,23 @@
                     "value": [
                         {
                             "key": "mem_reg_wr_en",
-                            "value": 4
+                            "value": 5
                         },
                         {
                             "key": "mem_reg_wr_idx",
-                            "value": 3
+                            "value": 4
                         },
                         {
                             "key": "wb_reg_wr_en",
-                            "value": 1
+                            "value": 2
                         },
                         {
                             "key": "wb_reg_wr_idx",
-                            "value": 2
+                            "value": 3
+                        },
+                        {
+                            "key": "mem_op",
+                            "value": 1
                         }
                     ]
                 },
@@ -11318,11 +12052,19 @@
                     "value": [
                         {
                             "key": "alu_reg1_forwarding_ctrl",
-                            "value": 2
+                            "value": 1
+                        },
+                        {
+                            "key": "un_br_reg1_ctrl",
+                            "value": 3
+                        },
+                        {
+                            "key": "alures_mem_ctrl",
+                            "value": 5
                         },
                         {
                             "key": "alu_reg2_forwarding_ctrl",
-                            "value": 6
+                            "value": 7
                         }
                     ]
                 }
@@ -19900,7 +20642,7 @@
                         "key": 2,
                         "value": {
                             "x": 938,
-                            "y": 900
+                            "y": 872
                         }
                     },
                     {
@@ -20072,7 +20814,7 @@
                         "key": 3,
                         "value": {
                             "x": 952,
-                            "y": 872
+                            "y": 886
                         }
                     }
                 ],
@@ -20159,13 +20901,36 @@
                             "reg_do_write_in",
                             "exmem_reg"
                         ]
+                    },
+                    {
+                        "key": 2,
+                        "value": [
+                            "ex_reg_wr_en",
+                            "funit"
+                        ]
                     }
                 ],
-                "points": [],
+                "points": [
+                    {
+                        "key": 3,
+                        "value": {
+                            "x": 922,
+                            "y": 930
+                        }
+                    }
+                ],
                 "wires": [
                     {
                         "first": 0,
                         "second": 1
+                    },
+                    {
+                        "first": 0,
+                        "second": 3
+                    },
+                    {
+                        "first": 3,
+                        "second": 2
                     }
                 ]
             },
@@ -20185,24 +20950,57 @@
                             "wr_reg_idx_in",
                             "exmem_reg"
                         ]
+                    },
+                    {
+                        "key": 2,
+                        "value": [
+                            "ex_reg_wr_idx",
+                            "funit"
+                        ]
                     }
                 ],
                 "points": [
                     {
-                        "key": 2,
+                        "key": 3,
                         "value": {
                             "x": 966,
                             "y": 746
+                        }
+                    },
+                    {
+                        "key": 4,
+                        "value": {
+                            "x": 966,
+                            "y": 746
+                        }
+                    },
+                    {
+                        "key": 5,
+                        "value": {
+                            "x": 966,
+                            "y": 914
                         }
                     }
                 ],
                 "wires": [
                     {
-                        "first": 2,
+                        "first": 0,
+                        "second": 3
+                    },
+                    {
+                        "first": 3,
                         "second": 1
                     },
                     {
                         "first": 0,
+                        "second": 4
+                    },
+                    {
+                        "first": 4,
+                        "second": 5
+                    },
+                    {
+                        "first": 5,
                         "second": 2
                     }
                 ]
@@ -20269,21 +21067,21 @@
                     {
                         "key": 4,
                         "value": {
-                            "x": 966,
+                            "x": 980,
                             "y": 802
                         }
                     },
                     {
                         "key": 5,
                         "value": {
-                            "x": 966,
+                            "x": 980,
                             "y": 732
                         }
                     },
                     {
                         "key": 6,
                         "value": {
-                            "x": 966,
+                            "x": 980,
                             "y": 662
                         }
                     }
@@ -20370,14 +21168,14 @@
                     {
                         "key": 3,
                         "value": {
-                            "x": 980,
+                            "x": 994,
                             "y": 788
                         }
                     },
                     {
                         "key": 4,
                         "value": {
-                            "x": 980,
+                            "x": 994,
                             "y": 606
                         }
                     }
@@ -20518,14 +21316,14 @@
                         "key": 3,
                         "value": {
                             "x": 1492,
-                            "y": 966
+                            "y": 980
                         }
                     },
                     {
                         "key": 4,
                         "value": {
                             "x": 1780,
-                            "y": 966
+                            "y": 980
                         }
                     }
                 ],
@@ -22781,7 +23579,14 @@
                         "key": 3,
                         "value": {
                             "x": 430,
-                            "y": 1125
+                            "y": 1055
+                        }
+                    },
+                    {
+                        "key": 4,
+                        "value": {
+                            "x": 630,
+                            "y": 1055
                         }
                     }
                 ],
@@ -22796,6 +23601,10 @@
                     },
                     {
                         "first": 3,
+                        "second": 4
+                    },
+                    {
+                        "first": 4,
                         "second": 2
                     }
                 ]
@@ -25803,7 +26612,7 @@
                         "key": 6,
                         "value": {
                             "x": 2018,
-                            "y": 886
+                            "y": 900
                         }
                     },
                     {
@@ -25875,35 +26684,35 @@
                         "key": 3,
                         "value": {
                             "x": 1176,
-                            "y": 942
+                            "y": 956
                         }
                     },
                     {
                         "key": 4,
                         "value": {
                             "x": 1176,
-                            "y": 872
+                            "y": 886
                         }
                     },
                     {
                         "key": 5,
                         "value": {
                             "x": 1162,
-                            "y": 872
+                            "y": 886
                         }
                     },
                     {
                         "key": 6,
                         "value": {
                             "x": 2032,
-                            "y": 942
+                            "y": 956
                         }
                     },
                     {
                         "key": 7,
                         "value": {
                             "x": 644,
-                            "y": 942
+                            "y": 956
                         }
                     },
                     {
@@ -27506,77 +28315,110 @@
                             "in_2",
                             "reg2_fw_src"
                         ]
+                    },
+                    {
+                        "key": 4,
+                        "value": [
+                            "in_3",
+                            "un_br_fw_src"
+                        ]
                     }
                 ],
                 "points": [
                     {
-                        "key": 4,
+                        "key": 5,
                         "value": {
                             "x": 616,
                             "y": 578
                         }
                     },
                     {
-                        "key": 5,
+                        "key": 6,
                         "value": {
                             "x": 2004,
                             "y": 230
                         }
                     },
                     {
-                        "key": 6,
+                        "key": 7,
                         "value": {
                             "x": 1092,
                             "y": 230
                         }
                     },
                     {
-                        "key": 7,
+                        "key": 8,
                         "value": {
                             "x": 1008,
                             "y": 230
                         }
                     },
                     {
-                        "key": 8,
+                        "key": 9,
                         "value": {
                             "x": 616,
                             "y": 230
+                        }
+                    },
+                    {
+                        "key": 10,
+                        "value": {
+                            "x": 2004,
+                            "y": 1200
+                        }
+                    },
+                    {
+                        "key": 11,
+                        "value": {
+                            "x": 484,
+                            "y": 1200
                         }
                     }
                 ],
                 "wires": [
                     {
-                        "first": 5,
-                        "second": 6
-                    },
-                    {
-                        "first": 0,
-                        "second": 5
-                    },
-                    {
                         "first": 6,
                         "second": 7
                     },
                     {
-                        "first": 4,
-                        "second": 1
-                    },
-                    {
-                        "first": 8,
-                        "second": 4
-                    },
-                    {
-                        "first": 7,
-                        "second": 2
-                    },
-                    {
-                        "first": 6,
-                        "second": 3
+                        "first": 0,
+                        "second": 6
                     },
                     {
                         "first": 7,
                         "second": 8
+                    },
+                    {
+                        "first": 5,
+                        "second": 1
+                    },
+                    {
+                        "first": 9,
+                        "second": 5
+                    },
+                    {
+                        "first": 8,
+                        "second": 2
+                    },
+                    {
+                        "first": 7,
+                        "second": 3
+                    },
+                    {
+                        "first": 8,
+                        "second": 9
+                    },
+                    {
+                        "first": 0,
+                        "second": 10
+                    },
+                    {
+                        "first": 10,
+                        "second": 11
+                    },
+                    {
+                        "first": 11,
+                        "second": 4
                     }
                 ]
             },
@@ -28684,8 +29526,8 @@
                     {
                         "key": 2,
                         "value": [
-                            "in_1",
-                            "jal_jalr_src"
+                            "in_0",
+                            "un_br_fw_src"
                         ]
                     }
                 ],
@@ -28694,28 +29536,21 @@
                         "key": 3,
                         "value": {
                             "x": 814,
-                            "y": 1000
+                            "y": 600
                         }
                     },
                     {
                         "key": 4,
                         "value": {
-                            "x": 570,
-                            "y": 1000
+                            "x": 814,
+                            "y": 1042
                         }
                     },
                     {
                         "key": 5,
                         "value": {
-                            "x": 570,
-                            "y": 1150
-                        }
-                    },
-                    {
-                        "key": 6,
-                        "value": {
-                            "x": 814,
-                            "y": 600
+                            "x": 488,
+                            "y": 1042
                         }
                     }
                 ],
@@ -28726,10 +29561,6 @@
                     },
                     {
                         "first": 0,
-                        "second": 6
-                    },
-                    {
-                        "first": 6,
                         "second": 3
                     },
                     {
@@ -29162,14 +29993,14 @@
                         "key": 2,
                         "value": {
                             "x": 940,
-                            "y": 1180
+                            "y": 1236
                         }
                     },
                     {
                         "key": 3,
                         "value": {
                             "x": 25,
-                            "y": 1180
+                            "y": 1236
                         }
                     }
                 ],
@@ -29214,6 +30045,295 @@
                         {
                             "key": "out",
                             "value": 2
+                        }
+                    ]
+                },
+                {
+                    "key": 2,
+                    "value": [
+                        {
+                            "key": "select",
+                            "value": 1
+                        }
+                    ]
+                }
+            ],
+            "Name label": {
+                "Visible": false,
+                "Bold": false,
+                "Italic": false,
+                "PtSize": 12,
+                "Text": {
+                    "str": "pc_src"
+                },
+                "Pos": {
+                    "x": 14.0,
+                    "y": -19.0
+                },
+                "Alignment": 132
+            },
+            "Indicators": []
+        },
+        "un_br_fw_src": {
+            "Top name": "un_br_fw_src",
+            "Rect": {
+                "x": 0,
+                "y": 0,
+                "w": 2,
+                "h": 8
+            },
+            "select": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "select"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "PC4"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "in_0": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "in_0"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x00000060"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "in_1": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "in_1"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0xdeadbeef"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "in_2": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "in_2"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0xdeadbeef"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "in_3": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "in_3"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0xdeadbeef"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "out": {
+                "Label": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 8,
+                    "Text": {
+                        "str": "out"
+                    },
+                    "Pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "Alignment": 132
+                },
+                "ValueLabel": {
+                    "Visible": false,
+                    "Bold": false,
+                    "Italic": false,
+                    "PtSize": 10,
+                    "Text": {
+                        "str": "0x00000060"
+                    },
+                    "Pos": {
+                        "x": 3.0,
+                        "y": -6.0
+                    },
+                    "Alignment": 132
+                },
+                "PortWidthVisible": true,
+                "UserHidden": false
+            },
+            "out_out_wire": {
+                "Parent": "5-Stage RISC-V Processor without forwarding",
+                "From port": {
+                    "first": 0,
+                    "second": [
+                        "out",
+                        "un_br_fw_src"
+                    ]
+                },
+                "To ports": [
+                    {
+                        "key": 1,
+                        "value": [
+                            "in_1",
+                            "jal_jalr_src"
+                        ]
+                    }
+                ],
+                "points": [],
+                "wires": [
+                    {
+                        "first": 0,
+                        "second": 1
+                    }
+                ]
+            },
+            "Pos": {
+                "x": 500,
+                "y": 1084
+            },
+            "Visible": true,
+            "User hidden": false,
+            "Component border": [
+                {
+                    "key": 0,
+                    "value": [
+                        {
+                            "key": "in_0",
+                            "value": 1
+                        },
+                        {
+                            "key": "in_1",
+                            "value": 3
+                        },
+                        {
+                            "key": "in_2",
+                            "value": 5
+                        },
+                        {
+                            "key": "in_3",
+                            "value": 7
+                        }
+                    ]
+                },
+                {
+                    "key": 1,
+                    "value": [
+                        {
+                            "key": "out",
+                            "value": 5
                         }
                     ]
                 },

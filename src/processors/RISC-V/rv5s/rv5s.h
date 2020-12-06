@@ -85,22 +85,13 @@ public:
         decode->r1_reg_idx >> funit->decode_reg1_idx;
         idex_reg->wr_reg_idx_out >> funit->ex_reg_wr_idx;
         idex_reg->reg_do_write_out >> funit->ex_reg_wr_en;
-
-        registerFile->r1_out >> un_br_fw_src->get(UnBrFwSrc::IdStage);
-        alu->res >> un_br_fw_src->get(UnBrFwSrc::ExStage);
-        reg_wr_src->out >> un_br_fw_src->get(UnBrFwSrc::WbStage);
-        funit->un_br_reg1_ctrl >> un_br_fw_src->select;
+        exmem_reg->mem_op_out >> funit->mem_op;
 
         un_br_fw_src->out >> jal_jalr_src->get(JalJalrSrc::JALR);
-
-        exmem_reg->mem_op_out >> funit->mem_op;
 
         funit->alures_mem_ctrl >> alures_mem_src->select;
         exmem_reg->alures_out >> alures_mem_src->get(LoadOp::Other);
         data_mem->data_out >> alures_mem_src->get(LoadOp::Load);
-
-        alures_mem_src->out >> un_br_fw_src->get(UnBrFwSrc::MemStage);
-
 
         // -----------------------------------------------------------------------
         // Program counter
