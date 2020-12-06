@@ -43,6 +43,7 @@ Enum(PcSrc, PC4 = 0, ALU = 1);
 Enum(JalJalrSrc, JAL = 0, JALR = 1);
 Enum(UnBrAluSrc, ALU = 0, UnBr = 1);
 Enum(CompFlagOp, NOP, EQ, NE, LT, LTE, GT, GTE, LTU, LTEU, GTU, GTEU);
+Enum(LoadOp, Load, Other);
 
 /** Instruction field parser */
 class RVInstrParser {

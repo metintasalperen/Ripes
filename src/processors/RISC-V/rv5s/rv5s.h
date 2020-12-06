@@ -39,7 +39,6 @@ class RV5S : public RipesProcessor {
 public:
     enum Stage { IF = 0, ID = 1, EX = 2, MEM = 3, WB = 4, STAGECOUNT };
     RV5S() : RipesProcessor("5-Stage RISC-V Processor") {
-        registerFile->r1_out >> jal_jalr_src->get(JalJalrSrc::JALR);
         ifid_reg->pc_out >> jal_jalr_src->get(JalJalrSrc::JAL);
         control->do_jalr >> jal_jalr_src->select;
 
@@ -82,6 +81,26 @@ public:
         br_and->out >> *efsc_or->in[0];
         ecallChecker->syscallExit >> *efsc_or->in[1];
         br_flag_and->out >> *efsc_or->in[2];
+
+        decode->r1_reg_idx >> funit->decode_reg1_idx;
+        idex_reg->wr_reg_idx_out >> funit->ex_reg_wr_idx;
+        idex_reg->reg_do_write_out >> funit->ex_reg_wr_en;
+
+        registerFile->r1_out >> un_br_fw_src->get(UnBrFwSrc::IdStage);
+        alu->res >> un_br_fw_src->get(UnBrFwSrc::ExStage);
+        reg_wr_src->out >> un_br_fw_src->get(UnBrFwSrc::WbStage);
+        funit->un_br_reg1_ctrl >> un_br_fw_src->select;
+
+        un_br_fw_src->out >> jal_jalr_src->get(JalJalrSrc::JALR);
+
+        exmem_reg->mem_op_out >> funit->mem_op;
+
+        funit->alures_mem_ctrl >> alures_mem_src->select;
+        exmem_reg->alures_out >> alures_mem_src->get(LoadOp::Other);
+        data_mem->data_out >> alures_mem_src->get(LoadOp::Load);
+
+        alures_mem_src->out >> un_br_fw_src->get(UnBrFwSrc::MemStage);
+
 
         // -----------------------------------------------------------------------
         // Program counter
@@ -329,6 +348,8 @@ public:
     SUBCOMPONENT(reg2_fw_src, TYPE(EnumMultiplexer<ForwardingSrc, RV_REG_WIDTH>));
     SUBCOMPONENT(jal_jalr_src, TYPE(EnumMultiplexer<JalJalrSrc, RV_REG_WIDTH>));
     SUBCOMPONENT(un_br_alu_src, TYPE(EnumMultiplexer<UnBrAluSrc, RV_REG_WIDTH>));
+    SUBCOMPONENT(un_br_fw_src, TYPE(EnumMultiplexer<UnBrFwSrc, RV_REG_WIDTH>));
+    SUBCOMPONENT(alures_mem_src, TYPE(EnumMultiplexer<LoadOp, RV_REG_WIDTH>));
 
     // Memories
     SUBCOMPONENT(instr_mem, TYPE(ROM<RV_REG_WIDTH, RV_INSTR_WIDTH>));

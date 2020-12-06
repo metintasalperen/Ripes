@@ -10,7 +10,7 @@
 
 // Functional units
 #include "../riscv.h"
-#include "../rv5s/rv5s_forwardingunit.h"
+#include "rv5s_no_hz_forwardingunit.h"
 #include "../rv5s/rv5s_alu.h"
 #include "../rv_branch.h"
 #include "../rv5s/rv5s_control.h"
@@ -281,7 +281,7 @@ public:
     SUBCOMPONENT(data_mem, TYPE(RVMemory<RV_REG_WIDTH, RV_REG_WIDTH>));
 
     // Forwarding unit
-    SUBCOMPONENT(funit, ForwardingUnit);
+    SUBCOMPONENT(funit, RV5S_NO_HZ_ForwardingUnit);
 
     // Gates
     // True if branch instruction and branch taken
