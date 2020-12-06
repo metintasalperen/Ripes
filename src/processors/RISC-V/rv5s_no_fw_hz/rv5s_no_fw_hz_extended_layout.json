@@ -1860,7 +1860,7 @@
                 "UserHidden": false
             },
             "out_out_wire": {
-                "Parent": "5-Stage RISC-V Processor",
+                "Parent": "5-Stage RISC-V Processor without forwarding or hazard detection",
                 "From port": {
                     "first": 0,
                     "second": [
