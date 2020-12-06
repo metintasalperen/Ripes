@@ -12,6 +12,7 @@
 #include "../riscv.h"
 #include "../rv5s/rv5s_alu.h"
 #include "../rv_branch.h"
+#include "../rv_branch_with_flag.h"
 #include "../rv5s/rv5s_control.h"
 #include "../rv_decode.h"
 #include "../rv_ecallchecker.h"
@@ -44,10 +45,32 @@ public:
         alu->res >> un_br_alu_src->get(UnBrAluSrc::ALU);
         control->do_jump >> un_br_alu_src->select;
 
-        control->do_jump >> *controlflow_or->in[1];
-
         efsc_or->out >> *ifid_clear_or->in[0];
         control->do_jump >> *ifid_clear_or->in[1];
+
+        control->comp_flag_ctrl >> idex_reg->comp_flag_ctrl_in;
+        control->do_br_with_flag >> idex_reg->do_br_with_flag_in;
+
+        1 >> alu_flag_reg->enable;
+        0 >> alu_flag_reg->clear;
+
+        alu->zero_flag >> alu_flag_reg->zero_flag_in;
+        alu->sign_flag >> alu_flag_reg->sign_flag_in;
+        alu->overflow_flag >> alu_flag_reg->overflow_flag_in;
+        alu->carry_flag >> alu_flag_reg->carry_flag_in;
+
+        alu_flag_reg->zero_flag_out >> branch_with_flag->zero_flag;
+        alu_flag_reg->sign_flag_out >> branch_with_flag->sign_flag;
+        alu_flag_reg->carry_flag_out >> branch_with_flag->carry_flag;
+        alu_flag_reg->overflow_flag_out >> branch_with_flag->overflow_flag;
+        idex_reg->comp_flag_ctrl_out >> branch_with_flag->comp_op;
+
+        idex_reg->do_br_with_flag_out >> *br_flag_and->in[1];
+        branch_with_flag->branch_taken >> *br_flag_and->in[0];
+
+        br_flag_and->out >> *controlflow_or->in[0];
+        control->do_jump >> *controlflow_or->in[1];
+        br_and->out >> *controlflow_or->in[2];
 
         // -----------------------------------------------------------------------
         // Program counter
@@ -62,6 +85,7 @@ public:
 
         br_and->out >> *efsc_or->in[0];
         ecallChecker->syscallExit >> *efsc_or->in[1];
+        br_flag_and->out >> *efsc_or->in[2];
 
         // -----------------------------------------------------------------------
         // Instruction memory
@@ -104,8 +128,6 @@ public:
 
         branch->res >> *br_and->in[0];
         idex_reg->do_br_out >> *br_and->in[1];
-        br_and->out >> *controlflow_or->in[0];
-        // idex_reg->do_jmp_out >> *controlflow_or->in[1];
 
         pc_4->out >> pc_src->get(PcSrc::PC4);
         un_br_alu_src->out >> pc_src->get(PcSrc::ALU);
@@ -227,9 +249,12 @@ public:
     SUBCOMPONENT(un_br_addr_calc, Adder<RV_REG_WIDTH>);
     SUBCOMPONENT(un_br_alu_src, TYPE(EnumMultiplexer<UnBrAluSrc, RV_REG_WIDTH>));
     SUBCOMPONENT(ifid_clear_or, TYPE(Or<1, 2>));
+    SUBCOMPONENT(branch_with_flag, BRANCH_WITH_FLAG);
+    SUBCOMPONENT(br_flag_and, TYPE(And<1, 2>));
 
     // Registers
     SUBCOMPONENT(pc_reg, Register<RV_REG_WIDTH>);
+    SUBCOMPONENT(alu_flag_reg, ALU_FLAG_REG);
 
     // Stage seperating registers
     SUBCOMPONENT(ifid_reg, IFID);
@@ -251,9 +276,9 @@ public:
     // True if branch instruction and branch taken
     SUBCOMPONENT(br_and, TYPE(And<1, 2>));
     // True if branch taken or jump instruction
-    SUBCOMPONENT(controlflow_or, TYPE(Or<1, 2>));
+    SUBCOMPONENT(controlflow_or, TYPE(Or<1, 3>));
     // True if controlflow action or performing syscall finishing
-    SUBCOMPONENT(efsc_or, TYPE(Or<1, 2>));
+    SUBCOMPONENT(efsc_or, TYPE(Or<1, 3>));
 
     // Address spaces
     ADDRESSSPACE(m_memory);

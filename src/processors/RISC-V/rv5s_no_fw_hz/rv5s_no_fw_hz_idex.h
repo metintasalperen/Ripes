@@ -30,6 +30,8 @@ public:
         CONNECT_REGISTERED_CLEN_INPUT(br_op, clear, enable);
         CONNECT_REGISTERED_CLEN_INPUT(do_br, clear, enable);
         CONNECT_REGISTERED_CLEN_INPUT(do_jmp, clear, enable);
+        CONNECT_REGISTERED_CLEN_INPUT(do_br_with_flag, clear, enable);
+        CONNECT_REGISTERED_CLEN_INPUT(comp_flag_ctrl, clear, enable);
 
         CONNECT_REGISTERED_CLEN_INPUT(valid, clear, enable);
     }
@@ -54,6 +56,8 @@ public:
     REGISTERED_CLEN_INPUT(br_op, CompOp::width());
     REGISTERED_CLEN_INPUT(do_br, 1);
     REGISTERED_CLEN_INPUT(do_jmp, 1);
+    REGISTERED_CLEN_INPUT(do_br_with_flag, 1);
+    REGISTERED_CLEN_INPUT(comp_flag_ctrl, CompFlagOp::width());
 
     // Register bank controls
     INPUTPORT(enable, 1);

@@ -53,6 +53,9 @@ public:
         control->do_jump >> *ifid_clear_or->in[1];
         efsc_or->out >> *ifid_clear_or->in[0];
 
+        control->comp_flag_ctrl >> idex_reg->comp_flag_ctrl_in;
+        control->do_br_with_flag >> idex_reg->do_br_with_flag_in;
+
         // -----------------------------------------------------------------------
         // Program counter
         pc_reg->out >> pc_4->op1;

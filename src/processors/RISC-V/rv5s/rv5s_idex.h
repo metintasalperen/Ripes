@@ -23,8 +23,6 @@ public:
         CONNECT_REGISTERED_CLEN_INPUT(rd_reg1_idx, clear, enable);
         CONNECT_REGISTERED_CLEN_INPUT(rd_reg2_idx, clear, enable);
         CONNECT_REGISTERED_CLEN_INPUT(opcode, clear, enable);
-        CONNECT_REGISTERED_CLEN_INPUT(do_br_with_flag, clear, enable);
-        CONNECT_REGISTERED_CLEN_INPUT(comp_flag_ctrl, clear, enable);
 
         // We want stalling info to persist through clearing of the register, so stalled register is always enabled and
         // never cleared.
@@ -34,8 +32,6 @@ public:
     REGISTERED_CLEN_INPUT(rd_reg1_idx, RV_REGS_BITS);
     REGISTERED_CLEN_INPUT(rd_reg2_idx, RV_REGS_BITS);
     REGISTERED_CLEN_INPUT(opcode, RVInstr::width());
-    REGISTERED_CLEN_INPUT(do_br_with_flag, 1);
-    REGISTERED_CLEN_INPUT(comp_flag_ctrl, CompFlagOp::width());
 
     REGISTERED_CLEN_INPUT(stalled, 1);
 };
