@@ -46,7 +46,8 @@ const QStringList pseudoOps = QStringList() << "nop"
                                             << "lw"
                                             << "sb"
                                             << "sh"
-                                            << "sw";
+                                            << "sw"
+                                            << "cmp";
 
 const QStringList opsWithOffsets = QStringList() << "beq"
                                                  << "bne"
@@ -493,6 +494,8 @@ void Assembler::unpackPseudoOp(const QStringList& fields, int& pos) {
         m_instructionsMap[pos + 1] = QStringList() << "addi" << fields[1] << fields[1] << fields[2];
         m_lineLabelUsageMap[pos] = fields[2];
         pos += 2;
+    } else if (fields.first() == "cmp") {
+        m_instructionsMap[pos] = QStringList() << "sub" << "x0" << fields[1] << fields[2];
     } else if (fields.first() == "nop") {
         m_instructionsMap[pos] = QStringList() << "addi"
                                                << "x0"

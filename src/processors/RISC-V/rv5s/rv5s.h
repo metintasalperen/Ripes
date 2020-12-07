@@ -87,6 +87,11 @@ public:
         idex_reg->reg_do_write_out >> funit->ex_reg_wr_en;
         exmem_reg->mem_op_out >> funit->mem_op;
 
+        registerFile->r1_out >> un_br_fw_src->get(UnBrFwSrc::IdStage);
+        alu->res >> un_br_fw_src->get(UnBrFwSrc::ExStage);
+        alures_mem_src->out >> un_br_fw_src->get(UnBrFwSrc::MemStage);
+        reg_wr_src->out >> un_br_fw_src->get(UnBrFwSrc::WbStage);
+        funit->un_br_reg1_ctrl >> un_br_fw_src->select;
         un_br_fw_src->out >> jal_jalr_src->get(JalJalrSrc::JALR);
 
         funit->alures_mem_ctrl >> alures_mem_src->select;

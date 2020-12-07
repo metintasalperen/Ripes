@@ -368,7 +368,8 @@ void RVAssemblyHighlighter::createSyntaxRules() {
           << "seqz"
           << "snez"
           << "sltz"
-          << "sgtz";
+          << "sgtz"
+          << "cmp";
     for (const auto& name : names) {
         rule.instr = name;
         rule.fields = 3;
