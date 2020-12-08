@@ -93,10 +93,10 @@ public:
                     return ((op2.uValue()) == 0 ? 1 : 0);
 
                 case ALUOp::LT:
-                    return ((static_cast<uint32_t>(op1.sValue() < op2.sValue() ? 1 : 0)) == 0 ? 1 : 0);
+                    return ((op1.sValue() - op2.sValue()) == 0 ? 1 : 0);
 
                 case ALUOp::LTU:
-                    return ((static_cast<uint32_t>(op1.uValue() < op2.uValue() ? 1 : 0)) == 0 ? 1 : 0);
+                    return ((op1.uValue() - op2.uValue()) == 0 ? 1 : 0);
 
                 case ALUOp::NOP:
                     return 0;
@@ -185,10 +185,10 @@ public:
                     return (((op2.uValue()) >> 31) & 1);
 
                 case ALUOp::LT:
-                    return (((static_cast<uint32_t>(op1.sValue() < op2.sValue() ? 1 : 0)) >> 31) & 1);
+                    return static_cast<uint32_t>(((op1.sValue() - op2.sValue()) >> 31) & 1);
 
                 case ALUOp::LTU:
-                    return (((static_cast<uint32_t>(op1.uValue() < op2.uValue() ? 1 : 0)) >> 31) & 1);
+                    return (((op1.uValue() - op2.uValue()) >> 31) & 1);
 
                 case ALUOp::NOP:
                     return 0U;

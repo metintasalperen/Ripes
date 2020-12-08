@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../riscv.h"
+#include "riscv.h"
 
 #include "VSRTL/core/vsrtl_component.h"
 
@@ -23,7 +23,7 @@ public:
                 }
                 case CompFlagOp::NE: {
                     // Z'
-                    if (zero_flag.uValue() == 0) {
+                    if (zero_flag.uValue() == 1) {
                         return false;
                     }
                     return true;

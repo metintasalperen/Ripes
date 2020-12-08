@@ -18,3 +18,4 @@ libRipesLib.a
 
 out/
 .vs
+CMakeSettings.json

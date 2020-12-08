@@ -9,14 +9,16 @@
 #include "../../ripesprocessor.h"
 
 #include "../riscv.h"
-#include "../rv_alu.h"
+#include "../rv5s/rv5s_alu.h"
 #include "../rv_branch.h"
-#include "../rv_control.h"
+#include "rvss_control.h"
 #include "../rv_decode.h"
 #include "../rv_ecallchecker.h"
 #include "../rv_immediate.h"
 #include "../rv_memory.h"
 #include "../rv_registerfile.h"
+#include "../rv_alu_flag_reg.h"
+#include "../rv_branch_with_flag.h"
 
 namespace vsrtl {
 namespace core {
@@ -25,6 +27,26 @@ using namespace Ripes;
 class RVSS : public RipesProcessor {
 public:
     RVSS() : RipesProcessor("Single Cycle RISC-V Processor") {
+        1 >> alu_flag_reg->enable;
+        0 >> alu_flag_reg->clear;
+        alu->zero_flag >> alu_flag_reg->zero_flag_in;
+        alu->sign_flag >> alu_flag_reg->sign_flag_in;
+        alu->overflow_flag >> alu_flag_reg->overflow_flag_in;
+        alu->carry_flag >> alu_flag_reg->carry_flag_in;
+
+        alu_flag_reg->zero_flag_out >> branch_with_flag->zero_flag;
+        alu_flag_reg->sign_flag_out >> branch_with_flag->sign_flag;
+        alu_flag_reg->carry_flag_out >> branch_with_flag->carry_flag;
+        alu_flag_reg->overflow_flag_out >> branch_with_flag->overflow_flag;
+        control->comp_flag_ctrl >> branch_with_flag->comp_op;
+
+        control->do_br_with_flag >> *br_flag_and->in[1];
+        branch_with_flag->branch_taken >> *br_flag_and->in[0];
+
+        br_and->out >> *controlflow_or->in[0];
+        control->do_jump >> *controlflow_or->in[1];
+        br_flag_and->out >> *controlflow_or->in[2];
+
         // -----------------------------------------------------------------------
         // Program counter
         pc_reg->out >> pc_4->op1;
@@ -77,8 +99,6 @@ public:
 
         branch->res >> *br_and->in[0];
         control->do_branch >> *br_and->in[1];
-        br_and->out >> *controlflow_or->in[0];
-        control->do_jump >> *controlflow_or->in[1];
         pc_4->out >> pc_src->get(PcSrc::PC4);
         alu->res >> pc_src->get(PcSrc::ALU);
 
@@ -114,15 +134,18 @@ public:
 
     // Design subcomponents
     SUBCOMPONENT(registerFile, RegisterFile<false>);
-    SUBCOMPONENT(alu, ALU);
-    SUBCOMPONENT(control, Control);
+    SUBCOMPONENT(alu, RV5S_ALU);
+    SUBCOMPONENT(control, RVSS_CONTROL);
     SUBCOMPONENT(immediate, Immediate);
     SUBCOMPONENT(decode, Decode);
     SUBCOMPONENT(branch, Branch);
     SUBCOMPONENT(pc_4, Adder<RV_REG_WIDTH>);
+    SUBCOMPONENT(branch_with_flag, BRANCH_WITH_FLAG);
+    SUBCOMPONENT(br_flag_and, TYPE(And<1, 2>));
 
     // Registers
     SUBCOMPONENT(pc_reg, Register<RV_REG_WIDTH>);
+    SUBCOMPONENT(alu_flag_reg, ALU_FLAG_REG);
 
     // Multiplexers
     SUBCOMPONENT(reg_wr_src, TYPE(EnumMultiplexer<RegWrSrc, RV_REG_WIDTH>));
@@ -136,7 +159,7 @@ public:
 
     // Gates
     SUBCOMPONENT(br_and, TYPE(And<1, 2>));
-    SUBCOMPONENT(controlflow_or, TYPE(Or<1, 2>));
+    SUBCOMPONENT(controlflow_or, TYPE(Or<1, 3>));
 
     // Address spaces
     ADDRESSSPACE(m_memory);

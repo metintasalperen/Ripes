@@ -496,6 +496,7 @@ void Assembler::unpackPseudoOp(const QStringList& fields, int& pos) {
         pos += 2;
     } else if (fields.first() == "cmp") {
         m_instructionsMap[pos] = QStringList() << "sub" << "x0" << fields[1] << fields[2];
+        pos++;
     } else if (fields.first() == "nop") {
         m_instructionsMap[pos] = QStringList() << "addi"
                                                << "x0"
