@@ -1,0 +1,58 @@
+# Optimized Solution (Code Optimizing) Example
+# Compiler rearranges instructions that cause hazards without altering algorithm
+
+# Use 5-Stage Processor w/o Forwarding and Hazard Detection
+
+# a = b + e
+# c = b + f
+
+.data
+a:		.word	0
+b:		.word	4
+c:		.word	0
+e:		.word	2
+f:		.word	-1
+
+#		Data conflicts solved by insterting no operation instructions
+#		li	t0, 0x10000000
+#		nop
+#		nop
+#		lw	t1, 4(t0)	# load b to t1
+#		lw	t2, 12(t0)	# load e to t2
+#		nop
+#		nop
+#		add	t3, t1, t2	# t3 = b + e
+#		nop
+#		nop
+#		sw	t3, 0(t0)	# save t3 to a
+#		lw	t4, 16(t0)	# load f to t4
+#		nop
+#		nop
+#		add	t5, t1, t4	# t5 = b + f
+#		nop
+#		nop
+#		sw	t5, 8(t0)	# save t5 to c
+#       
+#       total = 18 instructions
+#		required clock cycle = 22
+
+
+#		Instead of placing no operation instructions to any data hazard. Compiler may rearrange
+#		the sequence of the instructions that cause data hazards.
+.text
+main:
+		li	t0, 0x10000000
+		nop
+		nop
+		lw	t1, 4(t0)	# load b to t1
+		lw	t2, 12(t0)	# load e to t2
+		lw	t4, 16(t0)	# load f to t4
+		nop
+		add	t3, t1, t2	# t3 = b + e
+		add	t5, t1, t4	# t5 = b + f
+		nop
+		sw	t3, 0(t0)	# save t3 to a
+		sw	t5, 8(t0)	# save t5 to c
+
+#       total = 12 instructions
+#		required clock cycle = 16

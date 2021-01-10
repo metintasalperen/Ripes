@@ -1,0 +1,20 @@
+# Control Hazard - Unconditional Branch
+
+# For unconditional branches we don't need to check flags and don't have to make branch decision.
+# Therefore branch target address calculation can be moved to ID stage.
+# This will reduce the branch penalty from 2 cycle to 1 cycle.
+
+.data
+result: .word	0
+
+main:
+		li	t0, 5
+		li	t1, 4
+		j	branch
+		add t2, t0, t1
+		mul	t2, t2, t1
+branch:
+		sub t3, t0, t1
+exit
+		li a7, 10
+		ecall

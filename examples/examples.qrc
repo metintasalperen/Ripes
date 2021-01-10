@@ -1,11 +1,17 @@
 <RCC>
     <qresource prefix="/examples">
-        <file>assembly/Complex multiplication</file>
-        <file>assembly/Factorial function</file>
-        <file>assembly/Console printing</file>
-        <file>ELF/RanPi</file>
-        <file>C/ranpi.c</file>
-        <file>C/io.c</file>
-        <file>C/matrixmul.c</file>
+		<file>Programs/Sorting</file>
+		<file>Programs/Factorial Iterative</file>
+		<file>Programs/Factorial Recursive</file>
+		<file>Programs/Complex Multiplication</file>
+		<file>Programs/Russian Peasant Multiplication</file>
+		<file>Computer Architecture/Data Hazard/Data Hazard #1</file>
+		<file>Computer Architecture/Data Hazard/Data Hazard #2</file>
+		<file>Computer Architecture/Data Hazard/Data Hazard #3</file>
+		<file>Computer Architecture/Data Hazard/Load-Use Data Hazard</file>
+		<file>Computer Architecture/Data Hazard/Code Optimizing</file>
+		<file>Computer Architecture/Control Hazard/Contidional Branch - Taken</file>
+		<file>Computer Architecture/Control Hazard/Contidional Branch - Not Taken</file>
+		<file>Computer Architecture/Control Hazard/Uncontidional Branch</file>
     </qresource>
 </RCC>

@@ -1,0 +1,38 @@
+# fact(n) {
+#     if (n == 0) 
+#         return 1
+#	  return n * fact(n - 1)
+# }
+
+.data
+x:		.word	6
+
+
+.text
+main:
+		lw	    a0,	x
+		jal	    ra, fact
+		j	    exit
+
+fact:
+		beqz	a0, is_zero
+		addi	sp, sp, -8
+		sw		ra, 4(sp)
+		sw		a0, 0(sp)
+		addi	a0, a0, -1
+		jal		ra, fact
+		lw		t0, 0(sp)
+		mul		a0, a0, t0
+		lw		ra, 4(sp)
+		addi	sp, sp, 8
+		la		t0, x
+		sw		a0, 4(t0)
+		jr		ra
+is_zero:
+		li		a0, 1
+		jr		ra
+
+
+exit:
+		li a7, 10
+		ecall

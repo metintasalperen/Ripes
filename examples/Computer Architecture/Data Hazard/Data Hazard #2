@@ -1,0 +1,23 @@
+# Data Conflict (Hazard)
+# "read after write (RAW)" or "true dependency":
+# An instruction modifies a register or memory location, 
+# and a succeeding instruction reads the data in that memory or register location.
+# A data hazard occurs if the read takes place before the write operation is complete.
+
+# Example:
+
+.text
+start:
+li      t0, 5           # t0 = 5
+li      t1, 3           # t1 = 3
+li      t2, 0           # t2 = 0
+li      t3, 2           # t3 = 2
+j       raw             # branch unconditionally to raw
+
+raw:
+sub     t2, t0, t1      # t2 = t0 - t1
+add     t4, t2, t3      # t4 = t2 + t3
+
+# sub instruction modifies t2 register,
+# succeeding add instruction reads the data in t2 register.
+# A data hazard occurs if the read takes place before the write operation is complete.

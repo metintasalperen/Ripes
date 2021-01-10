@@ -3570,209 +3570,241 @@
             },
             "Indicators": []
         },
-        "controlflow_or": {
-            "Top name": "controlflow_or",
-            "Rect": {
-                "x": 0,
-                "y": 0,
-                "w": 3,
-                "h": 4
-            },
-            "in_0": {
-                "Label": {
-                    "Visible": false,
-                    "Bold": false,
-                    "Italic": false,
-                    "PtSize": 8,
-                    "Text": {
-                        "str": "in_0"
-                    },
-                    "Pos": {
-                        "x": 0.0,
-                        "y": 0.0
-                    },
-                    "Alignment": 132
-                },
-                "ValueLabel": {
-                    "Visible": false,
-                    "Bold": false,
-                    "Italic": false,
-                    "PtSize": 10,
-                    "Text": {
-                        "str": ""
-                    },
-                    "Pos": {
-                        "x": 3.0,
-                        "y": -6.0
-                    },
-                    "Alignment": 132
-                },
-                "PortWidthVisible": false,
-                "UserHidden": false
-            },
-            "in_1": {
-                "Label": {
-                    "Visible": false,
-                    "Bold": false,
-                    "Italic": false,
-                    "PtSize": 8,
-                    "Text": {
-                        "str": "in_1"
-                    },
-                    "Pos": {
-                        "x": 0.0,
-                        "y": 0.0
-                    },
-                    "Alignment": 132
-                },
-                "ValueLabel": {
-                    "Visible": false,
-                    "Bold": false,
-                    "Italic": false,
-                    "PtSize": 10,
-                    "Text": {
-                        "str": ""
-                    },
-                    "Pos": {
-                        "x": 3.0,
-                        "y": -6.0
-                    },
-                    "Alignment": 132
-                },
-                "PortWidthVisible": false,
-                "UserHidden": false
-            },
-            "out": {
-                "Label": {
-                    "Visible": false,
-                    "Bold": false,
-                    "Italic": false,
-                    "PtSize": 8,
-                    "Text": {
-                        "str": "out"
-                    },
-                    "Pos": {
-                        "x": 0.0,
-                        "y": 0.0
-                    },
-                    "Alignment": 132
-                },
-                "ValueLabel": {
-                    "Visible": false,
-                    "Bold": false,
-                    "Italic": false,
-                    "PtSize": 10,
-                    "Text": {
-                        "str": ""
-                    },
-                    "Pos": {
-                        "x": 3.0,
-                        "y": -6.0
-                    },
-                    "Alignment": 132
-                },
-                "PortWidthVisible": false,
-                "UserHidden": false
-            },
-            "out_out_wire": {
-                "Parent": "Single Cycle RISC-V Processor",
-                "From port": {
-                    "first": 0,
-                    "second": [
-                        "out",
-                        "controlflow_or"
-                    ]
-                },
-                "To ports": [
-                    {
-                        "key": 1,
-                        "value": [
-                            "select",
-                            "pc_src"
-                        ]
-                    }
-                ],
-                "points": [
-                    {
-                        "key": 2,
-                        "value": {
-                            "x": 56,
-                            "y": 844
-                        }
-                    },
-                    {
-                        "key": 3,
-                        "value": {
-                            "x": 1196,
-                            "y": 844
-                        }
-                    }
-                ],
-                "wires": [
-                    {
-                        "first": 3,
-                        "second": 2
-                    },
-                    {
-                        "first": 2,
-                        "second": 1
-                    },
-                    {
-                        "first": 0,
-                        "second": 3
-                    }
-                ]
+      "controlflow_or": {
+        "Top name": "controlflow_or",
+        "Rect": {
+          "x": 0,
+          "y": 0,
+          "w": 3,
+          "h": 4
+        },
+        "in_0": {
+          "Label": {
+            "Visible": false,
+            "Bold": false,
+            "Italic": false,
+            "PtSize": 8,
+            "Text": {
+              "str": "in_0"
             },
             "Pos": {
-                "x": 1140,
-                "y": 770
+              "x": 0.0,
+              "y": 0.0
             },
-            "Visible": true,
-            "User hidden": false,
-            "Component border": [
-                {
-                    "key": 0,
-                    "value": [
-                        {
-                            "key": "in_2",
-                            "value": 1
-                        },
-                        {
-                            "key": "in_1",
-                            "value": 2
-                        },
-                        {
-                            "key": "in_0",
-                            "value": 3
-                        }
-                    ]
-                },
-                {
-                    "key": 1,
-                    "value": [
-                        {
-                            "key": "out",
-                            "value": 2
-                        }
-                    ]
-                }
-            ],
-            "Name label": {
-                "Visible": false,
-                "Bold": false,
-                "Italic": false,
-                "PtSize": 12,
-                "Text": {
-                    "str": "controlflow_or"
-                },
-                "Pos": {
-                    "x": 14.0,
-                    "y": 0.0
-                },
-                "Alignment": 132
+            "Alignment": 132
+          },
+          "ValueLabel": {
+            "Visible": false,
+            "Bold": false,
+            "Italic": false,
+            "PtSize": 10,
+            "Text": {
+              "str": ""
             },
-            "Indicators": []
+            "Pos": {
+              "x": 3.0,
+              "y": -6.0
+            },
+            "Alignment": 132
+          },
+          "PortWidthVisible": false,
+          "UserHidden": false
         },
+        "in_1": {
+          "Label": {
+            "Visible": false,
+            "Bold": false,
+            "Italic": false,
+            "PtSize": 8,
+            "Text": {
+              "str": "in_1"
+            },
+            "Pos": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "Alignment": 132
+          },
+          "ValueLabel": {
+            "Visible": false,
+            "Bold": false,
+            "Italic": false,
+            "PtSize": 10,
+            "Text": {
+              "str": ""
+            },
+            "Pos": {
+              "x": 3.0,
+              "y": -6.0
+            },
+            "Alignment": 132
+          },
+          "PortWidthVisible": false,
+          "UserHidden": false
+        },
+        "in_2": {
+          "Label": {
+            "Visible": false,
+            "Bold": false,
+            "Italic": false,
+            "PtSize": 8,
+            "Text": {
+              "str": "in_2"
+            },
+            "Pos": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "Alignment": 132
+          },
+          "ValueLabel": {
+            "Visible": false,
+            "Bold": false,
+            "Italic": false,
+            "PtSize": 10,
+            "Text": {
+              "str": ""
+            },
+            "Pos": {
+              "x": 3.0,
+              "y": -6.0
+            },
+            "Alignment": 132
+          },
+          "PortWidthVisible": false,
+          "UserHidden": false
+        },
+        "out": {
+          "Label": {
+            "Visible": false,
+            "Bold": false,
+            "Italic": false,
+            "PtSize": 8,
+            "Text": {
+              "str": "out"
+            },
+            "Pos": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "Alignment": 132
+          },
+          "ValueLabel": {
+            "Visible": false,
+            "Bold": false,
+            "Italic": false,
+            "PtSize": 10,
+            "Text": {
+              "str": ""
+            },
+            "Pos": {
+              "x": 3.0,
+              "y": -6.0
+            },
+            "Alignment": 132
+          },
+          "PortWidthVisible": false,
+          "UserHidden": false
+        },
+        "out_out_wire": {
+          "Parent": "Single Cycle RISC-V Processor",
+          "From port": {
+            "first": 0,
+            "second": [
+              "out",
+              "controlflow_or"
+            ]
+          },
+          "To ports": [
+            {
+              "key": 1,
+              "value": [
+                "select",
+                "pc_src"
+              ]
+            }
+          ],
+          "points": [
+            {
+              "key": 2,
+              "value": {
+                "x": 56,
+                "y": 844
+              }
+            },
+            {
+              "key": 3,
+              "value": {
+                "x": 1196,
+                "y": 844
+              }
+            }
+          ],
+          "wires": [
+            {
+              "first": 3,
+              "second": 2
+            },
+            {
+              "first": 2,
+              "second": 1
+            },
+            {
+              "first": 0,
+              "second": 3
+            }
+          ]
+        },
+        "Pos": {
+          "x": 1140,
+          "y": 770
+        },
+        "Visible": true,
+        "User hidden": false,
+        "Component border": [
+          {
+            "key": 0,
+            "value": [
+              {
+                "key": "in_2",
+                "value": 1
+              },
+              {
+                "key": "in_1",
+                "value": 2
+              },
+              {
+                "key": "in_0",
+                "value": 3
+              }
+            ]
+          },
+          {
+            "key": 1,
+            "value": [
+              {
+                "key": "out",
+                "value": 2
+              }
+            ]
+          }
+        ],
+        "Name label": {
+          "Visible": false,
+          "Bold": false,
+          "Italic": false,
+          "PtSize": 12,
+          "Text": {
+            "str": "controlflow_or"
+          },
+          "Pos": {
+            "x": 14.0,
+            "y": 0.0
+          },
+          "Alignment": 132
+        },
+        "Indicators": []
+      },
         "data_mem": {
             "Top name": "data_mem",
             "Expanded": false,

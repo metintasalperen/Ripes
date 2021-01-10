@@ -1,0 +1,17 @@
+# Data Conflict (Hazard)
+
+.text
+start:
+li      t0, 3           # t0 = 3
+li      t1, 2           # t1 = 2
+li      t2, 0           # t2 = 0
+li      t3, 4           # t3 = 4
+j       data_hazard     # branch unconditionally to data_hazard
+
+data_hazard:
+add     t2, t0, t1      # t2 = t0 + t1
+sub     t4, t2, t3      # t4 = t2 + t3
+
+# sub instruction reads t2 register before it has been updated.
+# t2 does not contain the result of the previous add instruction
+# it has not been processed in Write Back (WB) yet.

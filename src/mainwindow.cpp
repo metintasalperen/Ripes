@@ -193,7 +193,37 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::setupExamplesMenu(QMenu* parent) {
-    const auto assemblyExamples = QDir(":/examples/assembly/").entryList(QDir::Files);
+    auto* programsMenu = parent->addMenu("Programs");
+    auto* caMenu = parent->addMenu("Computer Architecture");
+
+    const auto programs = QDir(":/examples/Programs/").entryList(QDir::Files);
+    for (const auto& fileName : programs) {
+        programsMenu->addAction(fileName, [=] { 
+            LoadFileParams parms;
+            parms.filepath = QString(":/examples/Programs/") + fileName;
+            parms.type = SourceType::Assembly;
+            m_editTab->loadExternalFile(parms);
+            m_hasSavedFile = false;
+        });
+    }
+
+    const auto caDirs = QDir(":/examples/Computer Architecture/").entryList(QDir::Dirs);
+    for (int i = 0; i < caDirs.size(); i++) {
+        auto* caSubDir = caMenu->addMenu(caDirs.at(i));
+        auto dir = ":/examples/Computer Architecture/" + caDirs.at(i) + "/";
+        const auto examples = QDir(dir).entryList(QDir::Files);
+        for (const auto& fileName : examples) {
+            caSubDir->addAction(fileName, [=] { 
+                LoadFileParams parms;
+                parms.filepath = dir + fileName;
+                parms.type = SourceType::Assembly;
+                m_editTab->loadExternalFile(parms);
+                m_hasSavedFile = false;
+            });
+        }
+    }
+
+    /*const auto assemblyExamples = QDir(":/examples/assembly/").entryList(QDir::Files);
     auto* assemblyMenu = parent->addMenu("Assembly");
     if (!assemblyExamples.isEmpty()) {
         for (const auto& fileName : assemblyExamples) {
@@ -207,7 +237,12 @@ void MainWindow::setupExamplesMenu(QMenu* parent) {
         }
     }
 
-    const auto cExamples = QDir(":/examples/C/").entryList(QDir::Files);
+    const auto assemblyDirs = QDir(":/examples/assembly/").entryList(QDir::Dirs);
+    for (int i = 0; i < assemblyDirs.size(); i++) {
+        auto* assemblySubMenu = assemblyMenu->addMenu(assemblyDirs.at(i));
+    }*/
+
+    /*const auto cExamples = QDir(":/examples/C/").entryList(QDir::Files);
     auto* cMenu = parent->addMenu("C");
     if (!cExamples.isEmpty()) {
         for (const auto& fileName : cExamples) {
@@ -242,7 +277,7 @@ void MainWindow::setupExamplesMenu(QMenu* parent) {
                 tmpELFFile->remove();
             });
         }
-    }
+    }*/
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
@@ -276,6 +311,7 @@ void MainWindow::loadFileTriggered() {
 
 void MainWindow::wiki() {
     QDesktopServices::openUrl(QUrl(QString("https://github.com/mortbopet/Ripes/wiki")));
+    // Change this to the my documentation.
 }
 
 void MainWindow::version() {

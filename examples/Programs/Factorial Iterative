@@ -1,0 +1,34 @@
+# fact(n) {
+#     result = 1
+#     for (n; n >= 2; n--) {
+#         result = result * i
+#     }
+#	  return result;
+# }
+
+.data
+x:		.word	6
+
+
+.text
+main:
+		lw	    a0,	x
+		jal	    ra, fact
+		j	    exit
+
+fact:
+		addi	t0, zero, 1		# ans = 1
+		addi	t1, zero, 2		# t1 = 2
+L1:
+		blt		a0, t1, result	# if a0 < 2 go result
+		mul		t0, t0, a0		# ans = ans * a0
+		addi	a0, a0, -1
+		j		L1
+
+result:
+		la		t2, x
+		sw		t0, 4(t2)
+
+exit:
+		li a7, 10
+		ecall

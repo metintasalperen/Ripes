@@ -1,0 +1,17 @@
+# Operation Forwarding (Bypassing)
+# Load-use data hazard:
+
+# Solved by forwarding from MEM/WB to ALU and stalling by 1 clock cycle
+
+.data
+x: 		.word 3
+
+.text
+start:
+la		t0, x
+li		t1, 2
+j		load-use-hazard
+
+load-use-hazard:
+lw		t2, 0(t0)
+add		t0, t1, t2

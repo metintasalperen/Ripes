@@ -1,0 +1,27 @@
+# Control Hazard - Branch Taken
+
+# Use 5-Stage Processor
+
+# In this processor branch target address calculation and decision are performed in the EX stage
+# In case of a stall, we have 2 cycles of branch penalty.
+
+.data
+result: .word	0
+
+.text
+main:
+		li		t0, 5			# t0 = 5
+		li		t1, 4			# t1 = 4
+		cmp		t0, t1			# set ALU flags for t0 - t1
+		bgtf	br-taken		# branch to "br-taken" if t0 > t1 (NOZ' + N'O'Z' = 1)
+		add		t1, t0, t0		# These instructions are
+		add		t3, t0, t1		# emptied from pipeline 
+		j		exit			# by hardware
+
+br-taken:
+		la		t2, result
+		sw		t1, 0(t2)
+
+exit:
+		li a7, 10
+		ecall
