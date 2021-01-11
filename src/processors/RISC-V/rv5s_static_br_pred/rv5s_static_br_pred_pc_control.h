@@ -17,8 +17,12 @@ public:
             auto vid = valid_id.uValue();
             auto jmp_ex = do_jump_ex.uValue();
             auto jmp_id = do_jump_id.uValue();
-            auto cond_br_dec = br_decision.uValue();
+            auto br_dec = br_decision.uValue();
+            auto br_with_flag_dec = br_with_flag_decision.uValue();
+            auto do_br = do_branch.uValue();
+            auto do_br_w_flag = do_br_with_flag.uValue();
             auto br_taken = br_decision.uValue() | br_with_flag_decision.uValue();
+            auto branch = do_branch.uValue() | do_br_with_flag.uValue();
             if (valid_ex.uValue() == 0 && valid_if.uValue() == 0 && br_taken == 0 &&
                 do_jump_id.uValue() == 0) {
                 return PcSelect::PC4_IF;
@@ -66,6 +70,8 @@ public:
     INPUTPORT(do_jump_ex, 1);
     INPUTPORT(br_decision, 1);
     INPUTPORT(br_with_flag_decision, 1);
+    INPUTPORT(do_branch, 1);
+    INPUTPORT(do_br_with_flag, 1);
 
     OUTPUTPORT_ENUM(pc_select, PcSelect);
 };
