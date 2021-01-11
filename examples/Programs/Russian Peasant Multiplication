@@ -13,7 +13,7 @@
 
 # Stop when the number on the first column becomes 0.
 
-Example: Multiply 92 by 37.
+# Example: Multiply 92 by 37.
 
 # Op1	Op2		Result
 # 92	37		

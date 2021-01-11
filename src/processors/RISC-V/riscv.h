@@ -15,6 +15,7 @@ namespace Ripes {
 #define RV_REGS_BITS ceillog2(RV_REGS)
 
 #define MAX_UINT_32 4294967295
+#define BTT_SIZE 4
 
 /** Instruction set enumerations */
 Enum(RVInstrType, R, I, S, B, U, J);
@@ -44,6 +45,7 @@ Enum(JalJalrSrc, JAL = 0, JALR = 1);
 Enum(UnBrAluSrc, ALU = 0, UnBr = 1);
 Enum(CompFlagOp, NOP, EQ, NE, LT, LTE, GT, GTE, LTU, LTEU, GTU, GTEU);
 Enum(LoadOp, Load, Other);
+Enum(PcSelect, PC4_IF, ALU, BTT, PC4_EX);
 
 /** Instruction field parser */
 class RVInstrParser {
