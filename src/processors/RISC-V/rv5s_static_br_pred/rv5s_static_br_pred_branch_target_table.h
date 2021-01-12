@@ -56,7 +56,7 @@ public:
                 return btt[i].address;
             }
 
-            if (do_jump.uValue() == 1 || do_branch.uValue() == 1 || do_br_with_flag.uValue() == 1) {
+            if (do_jal.uValue() == 1 || do_branch.uValue() == 1 || do_br_with_flag.uValue() == 1) {
                 for (i = 0; i < BTT_SIZE; i++) {
                     if (btt[i].isValid && btt[i].address == address.uValue() && btt[i].pc == pc_ex.uValue()) {
                         // instruction is already in table dont do anything
@@ -122,6 +122,59 @@ public:
             }
             return 0;
         };
+
+        pc_select << [=] {
+            unsigned int vif = 0;
+            for (int i = 0; i < BTT_SIZE; i++) {
+                if (btt[i].isValid && btt[i].pc == pc_if.uValue()) {
+                    vif = 1;
+                    break;
+                }
+            }
+            auto vex = valid_ex.uValue();
+            auto jmp = do_jump.uValue();
+            auto jal = do_jal.uValue();
+            auto br_dec = branch_decision.uValue();
+            auto br_with_flag_dec = branch_decision_flag.uValue();
+            auto do_br = do_branch.uValue();
+            auto do_br_w_flag = do_br_with_flag.uValue();
+            auto br_taken = branch_decision.uValue() | branch_decision_flag.uValue();
+            auto branch = do_branch.uValue() | do_br_with_flag.uValue();
+
+            if (jmp == 0) {
+                if (vex == 0 && vif == 0 && br_taken == 0 && branch == 0)
+                    return PcSelect::PC4_IF;
+                else if (vex == 0 && vif == 0 && br_taken == 0 && branch == 1)
+                    return PcSelect::PC4_IF;
+                else if (vex == 0 && vif == 0 && br_taken == 1 && branch == 1)
+                    return PcSelect::ALU;
+                else if (vex == 0 && vif == 1 && br_taken == 0 && branch == 0)
+                    return PcSelect::BTT;
+                else if (vex == 0 && vif == 1 && br_taken == 0 && branch == 1)
+                    return PcSelect::BTT;
+                else if (vex == 0 && vif == 1 && br_taken == 1 && branch == 1)
+                    return PcSelect::ALU;
+                else if (vex == 1 && vif == 0 && br_taken == 0 && branch == 1)
+                    return PcSelect::PC4_EX;
+                else if (vex == 1 && vif == 0 && br_taken == 1 && branch == 1)
+                    return PcSelect::PC4_IF;
+                else if (vex == 1 && vif == 1 && br_taken == 0 && branch == 1)
+                    return PcSelect::PC4_EX;
+                else if (vex == 1 && vif == 1 && br_taken == 1 && branch == 1)
+                    return PcSelect::BTT;
+                else
+                    throw std::runtime_error("should not suppose to go here");
+            } else {
+                if (jal == 1) {
+                    if (vex == 0)
+                        return PcSelect::ALU;
+                    else
+                        return PcSelect::PC4_IF;
+                } else {
+                    return PcSelect::ALU;
+                }
+            }
+        };
         // clang-format on
     }
 
@@ -133,11 +186,15 @@ public:
     INPUTPORT(branch_decision, 1);
 
     INPUTPORT(do_jump, 1);
+    INPUTPORT(do_jal, 1);
     INPUTPORT(do_branch, 1);
     INPUTPORT(do_br_with_flag, 1);
 
+    INPUTPORT(valid_ex, 1);
+
     OUTPUTPORT(target_addr, RV_REG_WIDTH);
     OUTPUTPORT(valid, 1);
+    OUTPUTPORT_ENUM(pc_select, PcSelect);
 
     std::array<BranchEntry, BTT_SIZE> btt;
 };

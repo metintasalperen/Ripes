@@ -10,18 +10,17 @@
 
 // Functional units
 #include "../riscv.h"
-#include "../rv5s/rv5s_alu.h"
+#include "../rv_alu_flag_reg.h"
 #include "../rv_branch.h"
 #include "../rv_branch_with_flag.h"
-#include "../rv5s/rv5s_control.h"
 #include "../rv_decode.h"
 #include "../rv_ecallchecker.h"
 #include "../rv_immediate.h"
 #include "../rv_memory.h"
 #include "../rv_registerfile.h"
-#include "../rv_alu_flag_reg.h"
+#include "../rv5s/rv5s_alu.h"
+#include "rv5s_static_br_pred_control.h"
 #include "rv5s_static_br_pred_branch_target_table.h"
-#include "rv5s_static_br_pred_pc_control.h"
 
 // Stage separating registers
 #include "rv5s_static_br_pred_ifid.h"
@@ -30,7 +29,7 @@
 #include "../rv5s/rv5s_memwb.h"
 
 // Forwarding & Hazard detection unit
-#include "../rv5s/rv5s_forwardingunit.h"
+#include "rv5s_static_br_pred_forwardingunit.h"
 #include "../rv5s/rv5s_hazardunit.h"
 
 namespace vsrtl {
@@ -41,67 +40,27 @@ class RV5S_STATIC_BR_PRED : public RipesProcessor {
 public:
     enum Stage { IF = 0, ID = 1, EX = 2, MEM = 3, WB = 4, STAGECOUNT };
     RV5S_STATIC_BR_PRED() : RipesProcessor("5-Stage RISC-V Processor with Static Branch Prediction") {
-        br_and->out >> *cond_br->in[0];
-        br_flag_and->out >> *cond_br->in[1];
+        idex_reg->btt_valid_out >> *controlflow_xor->in[0];
+        controlflow_or->out >> *controlflow_xor->in[1];
 
-        cond_br->out >> *br_xor->in[0];
-        idex_reg->btt_valid_out >> *br_xor->in[1];
+        btt->pc_select >> pc_src->select;
+        pc_4->out >> pc_src->get(PcSelect::PC4_IF);
+        idex_reg->pc4_out >> pc_src->get(PcSelect::PC4_EX);
+        alu->res >> pc_src->get(PcSelect::ALU);
+        btt->target_addr >> pc_src->get(PcSelect::BTT);
 
-        // br_and->out >> *efsc_or->in[0];
-        br_xor->out >> *efsc_or->in[0];
-        ecallChecker->syscallExit >> *efsc_or->in[1];
-        // br_flag_and->out >> *efsc_or->in[2];
-
-        1 >> *not_valid->in[0];
-        ifid_reg->btt_valid_out >> *not_valid->in[1];
-
-        not_valid->out >> *jump_and->in[0];
-        control->do_jump >> *jump_and->in[1];
-
-        efsc_or->out >> *ifid_clear_or->in[0];
-        // control->do_jump >> *ifid_clear_or->in[1];
-        jump_and->out >> *ifid_clear_or->in[1];
-        ifid_clear_or->out >> ifid_reg->clear;
-
-        idex_reg->do_jmp_out >> pc_control->do_jump_ex;
-        control->do_jump >> pc_control->do_jump_id;
-        ifid_reg->btt_valid_out >> pc_control->valid_id;
-        btt->valid >> pc_control->valid_if;
-        idex_reg->btt_valid_out >> pc_control->valid_ex;
-        branch->res >> pc_control->br_decision;
-        branch_with_flag->branch_taken >> pc_control->br_with_flag_decision;
-        idex_reg->do_br_out >> pc_control->do_branch;
-        idex_reg->do_br_with_flag_out >> pc_control->do_br_with_flag;
-
-        pc_control->pc_select >> pc_select->select;
-        pc_4->out >> pc_select->get(PcSelect::PC4_IF);
-        idex_reg->pc4_out >> pc_select->get(PcSelect::PC4_EX);
-        un_br_alu_src->out >> pc_select->get(PcSelect::ALU);
-        btt->target_addr >> pc_select->get(PcSelect::BTT);
-        pc_select->out >> pc_reg->in;
-
+        idex_reg->btt_valid_out >> btt->valid_ex;
         alu->res >> btt->address;
         branch->res >> btt->branch_decision;
         branch_with_flag->branch_taken >> btt->branch_decision_flag;
         idex_reg->do_br_out >> btt->do_branch;
         idex_reg->do_br_with_flag_out >> btt->do_br_with_flag;
+        idex_reg->do_jal_out >> btt->do_jal;
         idex_reg->do_jmp_out >> btt->do_jump;
         btt->valid >> ifid_reg->btt_valid_in;
         ifid_reg->btt_valid_out >> idex_reg->btt_valid_in;
         pc_reg->out >> btt->pc_if;
         idex_reg->pc_out >> btt->pc_ex;
-
-        ifid_reg->pc_out >> jal_jalr_src->get(JalJalrSrc::JAL);
-        control->do_jalr >> jal_jalr_src->select;
-
-        jal_jalr_src->out >> un_br_addr_calc->op1;
-        immediate->imm >> un_br_addr_calc->op2;
-
-        un_br_addr_calc->out >> un_br_alu_src->get(UnBrAluSrc::UnBr);
-        alu->res >> un_br_alu_src->get(UnBrAluSrc::ALU);
-        control->do_jump >> un_br_alu_src->select;
-
-        // un_br_alu_src->out >> pc_src->get(PcSrc::ALU);
 
         1 >> alu_flag_reg->enable;
         0 >> alu_flag_reg->clear;
@@ -123,37 +82,24 @@ public:
         branch_with_flag->branch_taken >> *br_flag_and->in[0];
 
         br_flag_and->out >> *controlflow_or->in[0];
-        control->do_jump >> *controlflow_or->in[1];
+        idex_reg->do_jmp_out >> *controlflow_or->in[1];
         br_and->out >> *controlflow_or->in[2];
 
-        decode->r1_reg_idx >> funit->decode_reg1_idx;
-        idex_reg->wr_reg_idx_out >> funit->ex_reg_wr_idx;
-        idex_reg->reg_do_write_out >> funit->ex_reg_wr_en;
-        exmem_reg->mem_op_out >> funit->mem_op;
-
-        registerFile->r1_out >> un_br_fw_src->get(UnBrFwSrc::IdStage);
-        alu->res >> un_br_fw_src->get(UnBrFwSrc::ExStage);
-        alures_mem_src->out >> un_br_fw_src->get(UnBrFwSrc::MemStage);
-        reg_wr_src->out >> un_br_fw_src->get(UnBrFwSrc::WbStage);
-        funit->un_br_reg1_ctrl >> un_br_fw_src->select;
-        un_br_fw_src->out >> jal_jalr_src->get(JalJalrSrc::JALR);
-
-        funit->alures_mem_ctrl >> alures_mem_src->select;
-        exmem_reg->alures_out >> alures_mem_src->get(LoadOp::Other);
-        data_mem->data_out >> alures_mem_src->get(LoadOp::Load);
+        controlflow_xor->out >> *efsc_or->in[0];
+        ecallChecker->syscallExit >> *efsc_or->in[1];
+        efsc_or->out >> ifid_reg->clear;
 
         // -----------------------------------------------------------------------
         // Program counter
         pc_reg->out >> pc_4->op1;
         4 >> pc_4->op2;
-        // pc_src->out >> pc_reg->in;
+        pc_src->out >> pc_reg->in;
         0 >> pc_reg->clear;
         hzunit->hazardFEEnable >> pc_reg->enable;
 
         // Note: pc_src works uses the PcSrc enum, but is selected by the boolean signal
         // from the controlflow OR gate. PcSrc enum values must adhere to the boolean
         // 0/1 values.
-        // controlflow_or->out >> pc_src->select;
 
         efsc_or->out >> *efschz_or->in[0];
         hzunit->hazardIDEXClear >> *efschz_or->in[1];
@@ -199,9 +145,6 @@ public:
 
         branch->res >> *br_and->in[0];
         idex_reg->do_br_out >> *br_and->in[1];
-
-        // pc_4->out >> pc_src->get(PcSrc::PC4);
-        // alu->res >> pc_src->get(PcSrc::ALU);
 
         // -----------------------------------------------------------------------
         // ALU
@@ -281,6 +224,7 @@ public:
         control->comp_ctrl >> idex_reg->br_op_in;
         control->do_branch >> idex_reg->do_br_in;
         control->do_jump >> idex_reg->do_jmp_in;
+        control->do_jal >> idex_reg->do_jal_in;
         decode->r1_reg_idx >> idex_reg->rd_reg1_idx_in;
         decode->r2_reg_idx >> idex_reg->rd_reg2_idx_in;
         decode->opcode >> idex_reg->opcode_in;
@@ -356,27 +300,19 @@ public:
         idex_reg->opcode_out >> hzunit->opcode;
     }
 
-    SUBCOMPONENT(btt, BRANCH_TARGET_TABLE);
-    SUBCOMPONENT(pc_control, RV5S_STATIC_BR_PRED_PC_CONTROL);
-    SUBCOMPONENT(pc_select, TYPE(EnumMultiplexer<PcSelect, RV_REG_WIDTH>));
-
-    SUBCOMPONENT(cond_br, TYPE(Or<1, 2>));
-    SUBCOMPONENT(br_xor, TYPE(Xor<1, 2>));
-    SUBCOMPONENT(jump_and, TYPE(And<1, 2>));
-    SUBCOMPONENT(not_valid, TYPE(Xor<1, 2>));
-
     // Design subcomponents
     SUBCOMPONENT(registerFile, RegisterFile<true>);
     SUBCOMPONENT(alu, RV5S_ALU);
-    SUBCOMPONENT(control, RV5S_CONTROL);
+    SUBCOMPONENT(control, RV5S_STATIC_BR_PRED_CONTROL);
     SUBCOMPONENT(immediate, Immediate);
     SUBCOMPONENT(decode, Decode);
     SUBCOMPONENT(branch, Branch);
     SUBCOMPONENT(pc_4, Adder<RV_REG_WIDTH>);
-    SUBCOMPONENT(un_br_addr_calc, Adder<RV_REG_WIDTH>);
-    SUBCOMPONENT(ifid_clear_or, TYPE(Or<1, 2>));
     SUBCOMPONENT(branch_with_flag, BRANCH_WITH_FLAG);
     SUBCOMPONENT(br_flag_and, TYPE(And<1, 2>));
+    SUBCOMPONENT(btt, BRANCH_TARGET_TABLE);
+    SUBCOMPONENT(pc_src, TYPE(EnumMultiplexer<PcSelect, RV_REG_WIDTH>));
+    SUBCOMPONENT(controlflow_xor, TYPE(Xor<1, 2>));
 
     // Registers
     SUBCOMPONENT(pc_reg, RegisterClEn<RV_REG_WIDTH>);
@@ -390,22 +326,17 @@ public:
 
     // Multiplexers
     SUBCOMPONENT(reg_wr_src, TYPE(EnumMultiplexer<RegWrSrc, RV_REG_WIDTH>));
-    // SUBCOMPONENT(pc_src, TYPE(EnumMultiplexer<PcSrc, RV_REG_WIDTH>));
     SUBCOMPONENT(alu_op1_src, TYPE(EnumMultiplexer<AluSrc1, RV_REG_WIDTH>));
     SUBCOMPONENT(alu_op2_src, TYPE(EnumMultiplexer<AluSrc2, RV_REG_WIDTH>));
     SUBCOMPONENT(reg1_fw_src, TYPE(EnumMultiplexer<ForwardingSrc, RV_REG_WIDTH>));
     SUBCOMPONENT(reg2_fw_src, TYPE(EnumMultiplexer<ForwardingSrc, RV_REG_WIDTH>));
-    SUBCOMPONENT(jal_jalr_src, TYPE(EnumMultiplexer<JalJalrSrc, RV_REG_WIDTH>));
-    SUBCOMPONENT(un_br_alu_src, TYPE(EnumMultiplexer<UnBrAluSrc, RV_REG_WIDTH>));
-    SUBCOMPONENT(un_br_fw_src, TYPE(EnumMultiplexer<UnBrFwSrc, RV_REG_WIDTH>));
-    SUBCOMPONENT(alures_mem_src, TYPE(EnumMultiplexer<LoadOp, RV_REG_WIDTH>));
 
     // Memories
     SUBCOMPONENT(instr_mem, TYPE(ROM<RV_REG_WIDTH, RV_INSTR_WIDTH>));
     SUBCOMPONENT(data_mem, TYPE(RVMemory<RV_REG_WIDTH, RV_REG_WIDTH>));
 
     // Forwarding & hazard detection units
-    SUBCOMPONENT(funit, ForwardingUnit);
+    SUBCOMPONENT(funit, RV5S_STATIC_BR_PRED_FUNIT);
     SUBCOMPONENT(hzunit, HazardUnit);
 
     // Gates
@@ -442,7 +373,7 @@ public:
         Q_UNREACHABLE();
         // clang-format on
     }
-    unsigned int nextFetchedAddress() const override { return pc_select->out.uValue(); }
+    unsigned int nextFetchedAddress() const override { return pc_src->out.uValue(); }
     QString stageName(unsigned int idx) const override {
         // clang-format off
         switch (idx) {
@@ -586,8 +517,8 @@ public:
         RipesProcessor::reset();
         m_syscallExitCycle = -1;
         for (int i = 0; i < BTT_SIZE; i++) {
+            btt->btt[i].address == 0xdeadbeef;
             btt->btt[i].age = 0;
-            btt->btt[i].address = 0xdeadbeef;
             btt->btt[i].pc = 0xdeadbeef;
             btt->btt[i].isValid = false;
         }

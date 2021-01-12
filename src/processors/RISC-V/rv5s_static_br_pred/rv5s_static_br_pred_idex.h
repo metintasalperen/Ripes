@@ -20,11 +20,11 @@ using namespace Ripes;
 class RV5S_STATIC_BR_PRED_IDEX : public RV5S_IDEX {
 public:
     RV5S_STATIC_BR_PRED_IDEX(std::string name, SimComponent* parent) : RV5S_IDEX(name, parent) {
-        // CONNECT_REGISTERED_CLEN_INPUT(instr, clear, enable);
+        CONNECT_REGISTERED_CLEN_INPUT(do_jal, clear, enable);
         CONNECT_REGISTERED_CLEN_INPUT(btt_valid, clear, enable);
     }
 
-    // REGISTERED_CLEN_INPUT(instr, RV_REG_WIDTH);
+    REGISTERED_CLEN_INPUT(do_jal, 1);
     REGISTERED_CLEN_INPUT(btt_valid, 1);
 };
 
