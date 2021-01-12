@@ -310,7 +310,7 @@ public:
     SUBCOMPONENT(pc_4, Adder<RV_REG_WIDTH>);
     SUBCOMPONENT(branch_with_flag, BRANCH_WITH_FLAG);
     SUBCOMPONENT(br_flag_and, TYPE(And<1, 2>));
-    SUBCOMPONENT(btt, BRANCH_TARGET_TABLE);
+    SUBCOMPONENT(btt, BRANCH_HISTORY_TABLE_1BIT);
     SUBCOMPONENT(pc_src, TYPE(EnumMultiplexer<PcSelect, RV_REG_WIDTH>));
     SUBCOMPONENT(controlflow_xor, TYPE(Xor<1, 2>));
 
@@ -496,7 +496,9 @@ public:
             m_instructionsRetired++;
         }
 
+        btt_stack.push(btt->btt);
         RipesProcessor::clock();
+        btt->printBtt();
     }
 
     void reverse() override {
@@ -506,10 +508,13 @@ public:
             ecallChecker->setSysCallExiting(false);
             m_syscallExitCycle = -1;
         }
+        btt->btt = btt_stack.top();
+        btt_stack.pop();
         RipesProcessor::reverse();
         if (memwb_reg->valid_out.uValue() != 0 && isExecutableAddress(memwb_reg->pc_out.uValue())) {
             m_instructionsRetired--;
         }
+        btt->printBtt();
     }
 
     void reset() override {
@@ -522,6 +527,9 @@ public:
             btt->btt[i].pc = 0xdeadbeef;
             btt->btt[i].isValid = false;
         }
+        while (!btt_stack.empty()) {
+            btt_stack.pop();
+        }
     }
 
 private:
@@ -531,6 +539,7 @@ private:
      * when we roll back an exit system call during rewinding.
      */
     long long m_syscallExitCycle = -1;
+    std::stack<std::array<Dynamic1BitBranchEntry, BTT_SIZE>> btt_stack;
 };
 
 }  // namespace core

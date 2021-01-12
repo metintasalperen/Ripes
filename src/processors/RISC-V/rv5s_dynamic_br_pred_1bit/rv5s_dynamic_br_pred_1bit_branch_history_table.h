@@ -30,10 +30,10 @@ public:
 };
 */
 
-class DynamicBranchEntry : public BranchEntry {
+class Dynamic1BitBranchEntry : public BranchEntry {
 public:
     unsigned int prediction_bit;
-    DynamicBranchEntry() : BranchEntry() { 
+    Dynamic1BitBranchEntry() : BranchEntry() { 
         prediction_bit = 0;
     }
 };
@@ -67,13 +67,24 @@ public:
                             btt[j].age++;
                     }
                 }
-                return btt[i].address;
+                if (btt[i].prediction_bit == 1)
+                    return btt[i].address;
+                else
+                    return 0xdeadbeef;
             }
 
             if (do_jal.uValue() == 1 || do_branch.uValue() == 1 || do_br_with_flag.uValue() == 1) {
                 for (i = 0; i < BTT_SIZE; i++) {
                     if (btt[i].isValid && btt[i].address == address.uValue() && btt[i].pc == pc_ex.uValue()) {
                         // instruction is already in table dont do anything
+                        for (int j = 0; j < BTT_SIZE; j++) {
+                            if (btt[j].isValid)
+                                btt[j].age++;
+                        }
+                        if (do_jal.uValue() == 1 || branch_decision.uValue() == 1 || branch_decision_flag.uValue() == 1)
+                            btt[i].prediction_bit = 1;
+                        else
+                            btt[i].prediction_bit = 0;
                         return 0xdeadbeef;
                     }
                 }
@@ -84,8 +95,8 @@ public:
                         break;
                     }
                 }
-                // table is empty
-                // add new branch instruction to table
+                // table has empty slot
+                // add new branch instruction to first empty slot
                 if (!allValid) {
                     for (int j = 0; j < BTT_SIZE; j++) {
                         if (i == j) {
@@ -93,12 +104,17 @@ public:
                             btt[j].address = address.uValue();
                             btt[j].age = 0;
                             btt[j].isValid = true;
+                            if (do_jal.uValue() == 1 || branch_decision.uValue() == 1 || branch_decision_flag.uValue() == 1)
+                                btt[i].prediction_bit = 1;
+                            else
+                                btt[i].prediction_bit = 0;
                         }
                         else {
                             if (btt[j].isValid)
                                 btt[j].age++;
                         }
                     }
+                    // printBtt();
                     return 0xdeadbeef;
                 }
                 // table is not empty
@@ -118,6 +134,10 @@ public:
                         btt[i].address = address.uValue();
                         btt[i].age = 0;
                         btt[i].isValid = true;
+                        if (do_jal.uValue() == 1 || branch_decision.uValue() == 1 || branch_decision_flag.uValue() == 1)
+                            btt[i].prediction_bit = 1;
+                        else
+                            btt[i].prediction_bit = 0;
                     }
                     else {
                         btt[j].age++;
@@ -125,12 +145,18 @@ public:
                 }
                 
             }
+            else {
+                for (int j = 0; j < BTT_SIZE; j++) {
+                    if (btt[j].isValid)
+                        btt[j].age++;
+                }
+            }
             return 0xdeafbeef;
         };
 
         valid << [=] {
             for (int i = 0; i < BTT_SIZE; i++) {
-                if (btt[i].isValid && btt[i].pc == pc_if.uValue()) {
+                if (btt[i].isValid && btt[i].pc == pc_if.uValue() && btt[i].prediction_bit == 1) {
                     return 1;
                 }
             }
@@ -139,9 +165,11 @@ public:
 
         pc_select << [=] {
             unsigned int vif = 0;
+            unsigned int prediction = 0;
             for (int i = 0; i < BTT_SIZE; i++) {
-                if (btt[i].isValid && btt[i].pc == pc_if.uValue()) {
+                if (btt[i].isValid && btt[i].pc == pc_if.uValue() && btt[i].prediction_bit == 1) {
                     vif = 1;
+                    prediction = btt[i].prediction_bit;
                     break;
                 }
             }
@@ -210,7 +238,27 @@ public:
     OUTPUTPORT(valid, 1);
     OUTPUTPORT_ENUM(pc_select, PcSelect);
 
-    std::array<BranchEntry, BTT_SIZE> btt;
+    std::array<Dynamic1BitBranchEntry, BTT_SIZE> btt;
+
+    void printBtt() {
+        QString header = "-- Branch History Table --\n";
+        SystemIO::printString(header);
+        for (int j = 0; j < BTT_SIZE; j++) {
+            if (btt[j].isValid) {
+                QString entry = QString::number(j) + ") " + 
+                    "Branch Instruction Address: " + QString::number(btt[j].pc) +
+                    " Target Address: " + QString::number(btt[j].address) +
+                    " Age: " + QString::number(btt[j].age) + 
+                    " Prediction Bit: " + QString::number(btt[j].prediction_bit) + 
+                    "\n";
+                SystemIO::printString(entry);
+            } else {
+                QString entry = QString::number(j) + ") EMPTY\n";
+                SystemIO::printString(entry);
+            }
+        }
+        SystemIO::printString("\n\n");
+    }
 };
 }  // namespace core
 }  // namespace vsrtl
