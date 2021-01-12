@@ -12,12 +12,13 @@
 #include "processors/RISC-V/rv5s_no_hz/rv5s_no_hz.h"
 #include "processors/RISC-V/rvss/rvss.h"
 #include "processors/RISC-V/rv5s_static_br_pred/rv5s_static_br_pred.h"
+#include "processors/RISC-V/rv5s_dynamic_br_pred_1bit/rv5s_dynamic_br_pred_1bit.h"
 
 namespace Ripes {
 Q_NAMESPACE
 
 // =============================== Processors =================================
-enum ProcessorID { RVSS, RV5S, RV5S_NO_HZ, RV5S_NO_FW_HZ, RV5S_STATIC_BR_PRED, NUM_PROCESSORS };
+enum ProcessorID { RVSS, RV5S, RV5S_NO_HZ, RV5S_NO_FW_HZ, RV5S_STATIC_BR_PRED, RV5S_DYNAMIC_BR_PRED_1BIT, NUM_PROCESSORS };
 Q_ENUM_NS(Ripes::ProcessorID);  // Register with the metaobject system
 // ============================================================================
 
@@ -62,6 +63,8 @@ public:
                 return std::make_unique<vsrtl::core::RV5S_NO_HZ>();
             case ProcessorID::RV5S_STATIC_BR_PRED:
                 return std::make_unique<vsrtl::core::RV5S_STATIC_BR_PRED>();
+            case ProcessorID::RV5S_DYNAMIC_BR_PRED_1BIT:
+                return std::make_unique<vsrtl::core::RV5S_DYNAMIC_BR_PRED_1BIT>();
             case ProcessorID::NUM_PROCESSORS:
                 Q_UNREACHABLE();
         }
@@ -121,6 +124,16 @@ private:
         desc.name = "5-Stage Processor with Static Branch Prediction";
         desc.description = "A 5-Stage in-order processor with static branch prediction. (always predict taken)";
         desc.layouts = {{"Extended", ":/layouts/RISC-V/rv5s_static_br_pred/rv5s_static_br_pred_extended_layout.json", {0.08, 0.28, 0.54, 0.78, 0.9}}};
+        desc.defaultRegisterVals = {{2, 0x7ffffff0}, {3, 0x10000000}};
+        m_descriptions[desc.id] = desc;
+
+        // RISC-V 5-Stage with dynamic branch prediction - 1 bit
+        desc = ProcessorDescription();
+        desc.id = ProcessorID::RV5S_DYNAMIC_BR_PRED_1BIT;
+        desc.isa = ISAInfo<ISA::RV32IM>::instance();
+        desc.name = "5-Stage Processor with Dynamic Branch Prediction - 1 bit";
+        desc.description = "A 5-Stage in-order processor with dynamic branch prediction - 1 bit";
+        desc.layouts = {{"Extended", ":/layouts/RISC-V/rv5s_dynamic_br_pred_1bit/rv5s_dynamic_br_pred_1bit_extended_layout.json", {0.08, 0.28, 0.54, 0.78, 0.9}}};
         desc.defaultRegisterVals = {{2, 0x7ffffff0}, {3, 0x10000000}};
         m_descriptions[desc.id] = desc;
     }

@@ -4,12 +4,16 @@
 
 #include "VSRTL/core/vsrtl_component.h"
 #include <stack>
-#include "../../../syscall/systemio.h"
-
+/*
+namespace Ripes {
+Enum(PredictionBits, STRONG_NOT_TAKEN, WEAK_NOT_TAKEN, WEAK_TAKEN, STRONG_TAKEN);
+}
+*/
 namespace vsrtl {
 namespace core {
 using namespace Ripes;
 
+/*
 class BranchEntry {
 public:
     unsigned int pc;
@@ -17,17 +21,26 @@ public:
     unsigned int age;
     bool isValid;
 
-    BranchEntry() { 
+    BranchEntry() {
         pc = 0xdeadbeef;
         address = 0xdeadbeef;
         age = 0;
         isValid = false;
     }
 };
+*/
 
-class BRANCH_TARGET_TABLE : public Component {
+class DynamicBranchEntry : public BranchEntry {
 public:
-    BRANCH_TARGET_TABLE(std::string name, SimComponent* parent) : Component(name, parent) {
+    unsigned int prediction_bit;
+    DynamicBranchEntry() : BranchEntry() { 
+        prediction_bit = 0;
+    }
+};
+
+class BRANCH_HISTORY_TABLE_1BIT : public Component {
+public:
+    BRANCH_HISTORY_TABLE_1BIT(std::string name, SimComponent* parent) : Component(name, parent) {
         // clang-format off
         target_addr << [=] {
             // check btt to see if instruction is in there
@@ -61,10 +74,6 @@ public:
                 for (i = 0; i < BTT_SIZE; i++) {
                     if (btt[i].isValid && btt[i].address == address.uValue() && btt[i].pc == pc_ex.uValue()) {
                         // instruction is already in table dont do anything
-                        for (int j = 0; j < BTT_SIZE; j++) {
-                            if (btt[j].isValid)
-                                btt[j].age++;
-                        }
                         return 0xdeadbeef;
                     }
                 }
@@ -75,8 +84,8 @@ public:
                         break;
                     }
                 }
-                // table has empty slot
-                // add new branch instruction to first empty slot
+                // table is empty
+                // add new branch instruction to table
                 if (!allValid) {
                     for (int j = 0; j < BTT_SIZE; j++) {
                         if (i == j) {
@@ -90,7 +99,6 @@ public:
                                 btt[j].age++;
                         }
                     }
-                    // printBtt();
                     return 0xdeadbeef;
                 }
                 // table is not empty
@@ -116,12 +124,6 @@ public:
                     }
                 }
                 
-            }
-            else {
-                for (int j = 0; j < BTT_SIZE; j++) {
-                    if (btt[j].isValid)
-                        btt[j].age++;
-                }
             }
             return 0xdeafbeef;
         };
@@ -209,22 +211,6 @@ public:
     OUTPUTPORT_ENUM(pc_select, PcSelect);
 
     std::array<BranchEntry, BTT_SIZE> btt;
-
-    void printBtt() {
-        QString header = "-- Branch Target Table --\n";
-        SystemIO::printString(header);
-        for (int j = 0; j < BTT_SIZE; j++) {
-            if (btt[j].isValid) {
-                QString entry = QString::number(j) + ") Branch Instruction Address: " + QString::number(btt[j].pc) +
-                                " Target Address: " + QString::number(btt[j].address) + " Age: " + QString::number(btt[j].age) + "\n";
-                SystemIO::printString(entry);
-            } else {
-                QString entry = QString::number(j) + ") EMPTY\n";
-                SystemIO::printString(entry);
-            }
-        }
-        SystemIO::printString("\n\n");
-    }
 };
 }  // namespace core
 }  // namespace vsrtl

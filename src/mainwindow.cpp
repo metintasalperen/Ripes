@@ -222,62 +222,6 @@ void MainWindow::setupExamplesMenu(QMenu* parent) {
             });
         }
     }
-
-    /*const auto assemblyExamples = QDir(":/examples/assembly/").entryList(QDir::Files);
-    auto* assemblyMenu = parent->addMenu("Assembly");
-    if (!assemblyExamples.isEmpty()) {
-        for (const auto& fileName : assemblyExamples) {
-            assemblyMenu->addAction(fileName, [=] {
-                LoadFileParams parms;
-                parms.filepath = QString(":/examples/assembly/") + fileName;
-                parms.type = SourceType::Assembly;
-                m_editTab->loadExternalFile(parms);
-                m_hasSavedFile = false;
-            });
-        }
-    }
-
-    const auto assemblyDirs = QDir(":/examples/assembly/").entryList(QDir::Dirs);
-    for (int i = 0; i < assemblyDirs.size(); i++) {
-        auto* assemblySubMenu = assemblyMenu->addMenu(assemblyDirs.at(i));
-    }*/
-
-    /*const auto cExamples = QDir(":/examples/C/").entryList(QDir::Files);
-    auto* cMenu = parent->addMenu("C");
-    if (!cExamples.isEmpty()) {
-        for (const auto& fileName : cExamples) {
-            cMenu->addAction(fileName, [=] {
-                LoadFileParams parms;
-                parms.filepath = QString(":/examples/C/") + fileName;
-                parms.type = SourceType::C;
-                m_editTab->loadExternalFile(parms);
-                m_hasSavedFile = false;
-            });
-        }
-    }
-
-    const auto ELFExamples = QDir(":/examples/ELF/").entryList(QDir::Files);
-    auto* elfMenu = parent->addMenu("ELF (precompiled C)");
-    if (!ELFExamples.isEmpty()) {
-        for (const auto& fileName : ELFExamples) {
-            elfMenu->addAction(fileName, [=] {
-                // ELFIO Cannot read directly from the bundled resource file, so copy the ELF file to a temporary file
-                // before loading the program.
-                QTemporaryFile* tmpELFFile = QTemporaryFile::createNativeFile(":/examples/ELF/" + fileName);
-                if (!tmpELFFile->open()) {
-                    QMessageBox::warning(this, "Error", "Could not create temporary ELF file");
-                    return;
-                }
-
-                LoadFileParams parms;
-                parms.filepath = tmpELFFile->fileName();
-                parms.type = SourceType::ExternalELF;
-                m_editTab->loadExternalFile(parms);
-                m_hasSavedFile = false;
-                tmpELFFile->remove();
-            });
-        }
-    }*/
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {

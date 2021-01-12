@@ -19,27 +19,27 @@
 #include "../rv_memory.h"
 #include "../rv_registerfile.h"
 #include "../rv5s/rv5s_alu.h"
-#include "rv5s_static_br_pred_control.h"
-#include "rv5s_static_br_pred_branch_target_table.h"
+#include "rv5s_dynamic_br_pred_1bit_control.h"
+#include "rv5s_dynamic_br_pred_1bit_branch_history_table.h"
 
 // Stage separating registers
-#include "rv5s_static_br_pred_ifid.h"
+#include "rv5s_dynamic_br_pred_1bit_ifid.h"
 #include "../rv5s/rv5s_exmem.h"
-#include "rv5s_static_br_pred_idex.h"
+#include "rv5s_dynamic_br_pred_1bit_idex.h"
 #include "../rv5s/rv5s_memwb.h"
 
 // Forwarding & Hazard detection unit
-#include "rv5s_static_br_pred_forwardingunit.h"
+#include "rv5s_dynamic_br_pred_1bit_forwardingunit.h"
 #include "../rv5s/rv5s_hazardunit.h"
 
 namespace vsrtl {
 namespace core {
 using namespace Ripes;
 
-class RV5S_STATIC_BR_PRED : public RipesProcessor {
+class RV5S_DYNAMIC_BR_PRED_1BIT : public RipesProcessor {
 public:
     enum Stage { IF = 0, ID = 1, EX = 2, MEM = 3, WB = 4, STAGECOUNT };
-    RV5S_STATIC_BR_PRED() : RipesProcessor("5-Stage RISC-V Processor with Static Branch Prediction") {
+    RV5S_DYNAMIC_BR_PRED_1BIT() : RipesProcessor("5-Stage RISC-V Processor with Dynamic Branch Prediction - 1 bit") {
         idex_reg->btt_valid_out >> *controlflow_xor->in[0];
         controlflow_or->out >> *controlflow_xor->in[1];
 
@@ -303,7 +303,7 @@ public:
     // Design subcomponents
     SUBCOMPONENT(registerFile, RegisterFile<true>);
     SUBCOMPONENT(alu, RV5S_ALU);
-    SUBCOMPONENT(control, RV5S_STATIC_BR_PRED_CONTROL);
+    SUBCOMPONENT(control, RV5S_DYNAMIC_BR_PRED_1BIT_CONTROL);
     SUBCOMPONENT(immediate, Immediate);
     SUBCOMPONENT(decode, Decode);
     SUBCOMPONENT(branch, Branch);
@@ -319,8 +319,8 @@ public:
     SUBCOMPONENT(alu_flag_reg, ALU_FLAG_REG);
 
     // Stage seperating registers
-    SUBCOMPONENT(ifid_reg, RV5S_STATIC_BR_PRED_IFID);
-    SUBCOMPONENT(idex_reg, RV5S_STATIC_BR_PRED_IDEX);
+    SUBCOMPONENT(ifid_reg, RV5S_DYNAMIC_BR_PRED_1BIT_IFID);
+    SUBCOMPONENT(idex_reg, RV5S_DYNAMIC_BR_PRED_1BIT_IDEX);
     SUBCOMPONENT(exmem_reg, RV5S_EXMEM);
     SUBCOMPONENT(memwb_reg, RV5S_MEMWB);
 
@@ -330,13 +330,13 @@ public:
     SUBCOMPONENT(alu_op2_src, TYPE(EnumMultiplexer<AluSrc2, RV_REG_WIDTH>));
     SUBCOMPONENT(reg1_fw_src, TYPE(EnumMultiplexer<ForwardingSrc, RV_REG_WIDTH>));
     SUBCOMPONENT(reg2_fw_src, TYPE(EnumMultiplexer<ForwardingSrc, RV_REG_WIDTH>));
-
+    
     // Memories
     SUBCOMPONENT(instr_mem, TYPE(ROM<RV_REG_WIDTH, RV_INSTR_WIDTH>));
     SUBCOMPONENT(data_mem, TYPE(RVMemory<RV_REG_WIDTH, RV_REG_WIDTH>));
 
     // Forwarding & hazard detection units
-    SUBCOMPONENT(funit, RV5S_STATIC_BR_PRED_FUNIT);
+    SUBCOMPONENT(funit, RV5S_DYNAMIC_BR_PRED_1BIT_FUNIT);
     SUBCOMPONENT(hzunit, HazardUnit);
 
     // Gates
@@ -496,9 +496,7 @@ public:
             m_instructionsRetired++;
         }
 
-        btt_stack.push(btt->btt);
         RipesProcessor::clock();
-        btt->printBtt();
     }
 
     void reverse() override {
@@ -508,13 +506,10 @@ public:
             ecallChecker->setSysCallExiting(false);
             m_syscallExitCycle = -1;
         }
-        btt->btt = btt_stack.top();
-        btt_stack.pop();
         RipesProcessor::reverse();
         if (memwb_reg->valid_out.uValue() != 0 && isExecutableAddress(memwb_reg->pc_out.uValue())) {
             m_instructionsRetired--;
         }
-        btt->printBtt();
     }
 
     void reset() override {
@@ -527,9 +522,6 @@ public:
             btt->btt[i].pc = 0xdeadbeef;
             btt->btt[i].isValid = false;
         }
-        while (!btt_stack.empty()) {
-            btt_stack.pop();
-        }
     }
 
 private:
@@ -539,7 +531,6 @@ private:
      * when we roll back an exit system call during rewinding.
      */
     long long m_syscallExitCycle = -1;
-    std::stack<std::array<BranchEntry, BTT_SIZE>> btt_stack;
 };
 
 }  // namespace core

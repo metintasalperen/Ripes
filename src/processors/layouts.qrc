@@ -5,5 +5,6 @@
         <file>RISC-V/rv5s_no_fw_hz/rv5s_no_fw_hz_extended_layout.json</file>
         <file>RISC-V/rv5s_no_hz/rv5s_no_hz_extended_layout.json</file>
 		<file>RISC-V/rv5s_static_br_pred/rv5s_static_br_pred_extended_layout.json</file>
+		<file>RISC-V/rv5s_dynamic_br_pred_1bit/rv5s_dynamic_br_pred_1bit_extended_layout.json</file>
     </qresource>
 </RCC>
