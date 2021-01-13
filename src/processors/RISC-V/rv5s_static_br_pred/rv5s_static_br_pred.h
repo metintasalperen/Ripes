@@ -495,10 +495,12 @@ public:
         if (memwb_reg->valid_out.uValue() != 0 && isExecutableAddress(memwb_reg->pc_out.uValue())) {
             m_instructionsRetired++;
         }
-
         btt_stack.push(btt->btt);
         RipesProcessor::clock();
         btt->printBtt();
+
+        if (finished())
+            SystemIO::printString("Program exited with code: 0");
     }
 
     void reverse() override {
@@ -508,13 +510,15 @@ public:
             ecallChecker->setSysCallExiting(false);
             m_syscallExitCycle = -1;
         }
-        btt->btt = btt_stack.top();
-        btt_stack.pop();
         RipesProcessor::reverse();
         if (memwb_reg->valid_out.uValue() != 0 && isExecutableAddress(memwb_reg->pc_out.uValue())) {
             m_instructionsRetired--;
         }
-        btt->printBtt();
+        if (!btt_stack.empty()) {
+            btt->btt = btt_stack.top();
+            btt_stack.pop();
+            btt->printBtt();
+        }
     }
 
     void reset() override {

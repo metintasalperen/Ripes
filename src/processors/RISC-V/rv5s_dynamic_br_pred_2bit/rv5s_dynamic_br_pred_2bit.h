@@ -20,7 +20,7 @@
 #include "../rv_registerfile.h"
 #include "../rv5s/rv5s_alu.h"
 #include "../rv5s_static_br_pred/rv5s_static_br_pred_control.h"
-#include "rv5s_dynamic_br_pred_1bit_branch_history_table.h"
+#include "rv5s_dynamic_br_pred_2bit_branch_history_table.h"
 
 // Stage separating registers
 #include "../rv5s_static_br_pred/rv5s_static_br_pred_ifid.h"
@@ -36,10 +36,10 @@ namespace vsrtl {
 namespace core {
 using namespace Ripes;
 
-class RV5S_DYNAMIC_BR_PRED_1BIT : public RipesProcessor {
+class RV5S_DYNAMIC_BR_PRED_2BIT : public RipesProcessor {
 public:
     enum Stage { IF = 0, ID = 1, EX = 2, MEM = 3, WB = 4, STAGECOUNT };
-    RV5S_DYNAMIC_BR_PRED_1BIT() : RipesProcessor("5-Stage RISC-V Processor with Dynamic Branch Prediction - 1 bit") {
+    RV5S_DYNAMIC_BR_PRED_2BIT() : RipesProcessor("5-Stage RISC-V Processor with Dynamic Branch Prediction - 2 bit") {
         idex_reg->btt_valid_out >> *controlflow_xor->in[0];
         controlflow_or->out >> *controlflow_xor->in[1];
 
@@ -310,7 +310,7 @@ public:
     SUBCOMPONENT(pc_4, Adder<RV_REG_WIDTH>);
     SUBCOMPONENT(branch_with_flag, BRANCH_WITH_FLAG);
     SUBCOMPONENT(br_flag_and, TYPE(And<1, 2>));
-    SUBCOMPONENT(btt, BRANCH_HISTORY_TABLE_1BIT);
+    SUBCOMPONENT(btt, BRANCH_HISTORY_TABLE_2BIT);
     SUBCOMPONENT(pc_src, TYPE(EnumMultiplexer<PcSelect, RV_REG_WIDTH>));
     SUBCOMPONENT(controlflow_xor, TYPE(Xor<1, 2>));
 
@@ -530,7 +530,7 @@ public:
             btt->btt[i].address == 0xdeadbeef;
             btt->btt[i].age = 0;
             btt->btt[i].pc = 0xdeadbeef;
-            btt->btt[i].prediction_bit = 0;
+            btt->btt[i].prediction_bits = 0;
             btt->btt[i].isValid = false;
         }
         while (!btt_stack.empty()) {
@@ -545,7 +545,7 @@ private:
      * when we roll back an exit system call during rewinding.
      */
     long long m_syscallExitCycle = -1;
-    std::stack<std::array<Dynamic1BitBranchEntry, BTT_SIZE>> btt_stack;
+    std::stack<std::array<Dynamic2BitBranchEntry, BTT_SIZE>> btt_stack;
 };
 
 }  // namespace core
