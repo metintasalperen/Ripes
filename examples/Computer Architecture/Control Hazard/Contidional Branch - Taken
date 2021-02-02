@@ -14,9 +14,9 @@ main:
 		li		t1, 4			# t1 = 4
 		cmp		t0, t1			# set ALU flags for t0 - t1
 		bgtf	br-taken		# branch to "br-taken" if t0 > t1 (NOZ' + N'O'Z' = 1)
-		add		t1, t0, t0		# These instructions are
+		add		t1, t0, t0		# These two instructions are
 		add		t3, t0, t1		# emptied from pipeline 
-		j		exit			# by hardware
+		j		exit			
 
 br-taken:
 		la		t2, result

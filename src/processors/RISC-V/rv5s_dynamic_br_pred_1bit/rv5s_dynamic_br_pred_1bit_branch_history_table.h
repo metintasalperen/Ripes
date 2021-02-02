@@ -4,31 +4,9 @@
 
 #include "VSRTL/core/vsrtl_component.h"
 #include <stack>
-/*
-namespace Ripes {
-Enum(PredictionBits, STRONG_NOT_TAKEN, WEAK_NOT_TAKEN, WEAK_TAKEN, STRONG_TAKEN);
-}
-*/
 namespace vsrtl {
 namespace core {
 using namespace Ripes;
-
-/*
-class BranchEntry {
-public:
-    unsigned int pc;
-    unsigned int address;
-    unsigned int age;
-    bool isValid;
-
-    BranchEntry() {
-        pc = 0xdeadbeef;
-        address = 0xdeadbeef;
-        age = 0;
-        isValid = false;
-    }
-};
-*/
 
 class Dynamic1BitBranchEntry : public BranchEntry {
 public:

@@ -255,7 +255,6 @@ void MainWindow::loadFileTriggered() {
 
 void MainWindow::wiki() {
     QDesktopServices::openUrl(QUrl(QString("https://github.com/metintasalperen/Ripes/blob/master/documentation")));
-    // Change this to the my documentation.
 }
 
 void MainWindow::version() {

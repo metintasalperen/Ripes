@@ -1,0 +1,84 @@
+# Branch Prediction with Nested Loops
+
+li		t1, 10 			# counter1 = 10
+loop1:
+li		t2, 10			# counter2 = 10
+loop2:
+addi	t2, t2, -1		# counter2 = counter2 - 1
+cmp		t2, x0			# compare counter2 with zero, set flags
+bnef	loop2			# if counter2 != 0, branch to loop2
+addi	t1, t1, -1		# counter1 = counter1 - 1
+cmp		t1, x0			# compare counter1 with zero, set flags
+bnef	loop1			# if counter1 != 0, branch to loop1
+
+exit:					# exit program
+li		a7, 10
+ecall
+
+# Without prediction:
+
+# bnef loop1, only last iteration is correct.
+# Other 9 iterations are wrong.
+# Correct: 1	Incorrect: 9
+# Branch Penalty: 18 clock cycles
+
+# bnef loop2, only last iteration is correct.
+# Other 9 iterations are wrong. Inner loop is run 10 times
+# Correct: 1 * 10 = 10		Incorrect: 9 * 10 = 90
+# Branch Penalty: 180 clock cycles
+
+# Total:
+# Correct: 11	Incorrect: 99
+# Branch Penalty: 198 clock cycles
+
+
+# Static Branch Prediction - Branch Taken:
+
+# Assuming branch instructions are not in BTT.
+# bnef loop1, first and last iterations are incorrect.
+# Other iterations are correct.
+# Correct: 8	Incorrect: 2
+# Branch Penalty: 4 clock cycles
+
+# bnef loop2, in the first run of the loop, first and last iterations are incorrect
+# In the 2nd-10th run of the loop only last iteration is incorrect
+# Correct: 8 + 9 * 9 = 89	Incorrect 2 + 9 * 1 = 11
+# Branch Penalty: 22 clock cycles
+
+# Total:
+# Correct: 97	Incorrect: 13
+# Branch Penalty: 26 clock cycles
+
+
+# Dynamic Branch Prediction - 1 bit:
+
+# Assuming branch instructions are not in BHT.
+# bnef loop1, first and last iterations are incorrect.
+# Correct: 8	Incorrect: 2
+# Branch Penalty: 4 clock cycles
+
+# bnef loop2, for every run of the inner loop, first and last iterations are incorrect
+# Correct: 8 * 10 = 80	Incorrect: 2 * 10 = 20
+# Branch Penalty: 40 clock cycles
+
+# Total:
+# Correct: 88	Incorrect: 22
+# Branch Penalty: 44 clock cycles
+
+
+# Dynamic Branch Prediction - 2 bit:
+
+# Assuming branch instructions are not in BHT.
+# bnef loop1, first and last iterations are incorrect.
+# Correct: 8	Incorrect: 2
+# Branch Penalty: 4 clock cycles
+
+# bnef loop2, in the first run of the loop, first and last iterations are incorrect.
+# At the start of the 2nd run, branch decision is still "branch taken".
+# Therefore in the 2nd-10th runs, only last iterations are incorrect
+# Correct: 8 + 9 * 9 = 89	Incorrect 2 + 9 * 1 = 11
+# Branch Penalty: 22 clock cycles
+
+# Total:
+# Correct: 97	Incorrect: 13
+# Branch Penalty: 26 clock cycles

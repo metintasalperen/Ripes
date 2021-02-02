@@ -13,5 +13,6 @@
 		<file>Computer Architecture/Control Hazard/Contidional Branch - Taken</file>
 		<file>Computer Architecture/Control Hazard/Contidional Branch - Not Taken</file>
 		<file>Computer Architecture/Control Hazard/Uncontidional Branch</file>
+		<file>Computer Architecture/Branch Prediction/Nested Loops</file>
     </qresource>
 </RCC>

@@ -208,11 +208,6 @@ public:
                         return 1;
                     }
                     return 0;
-                    // bool x = o1 <= (o2 * -1);
-                    /*int res = ((o1 <= (o2 * -1)) ? 1 : 0);
-                    return res;*/
-                    /*auto result = op1.uValue() + op2.uValue();
-                    return ((result < op1.uValue() || result < op2.uValue()) ? 1 : 0);*/
                 }
                 case ALUOp::SUB:
                     return ((op1.uValue() <= op2.uValue()) ? 1 : 0);
@@ -270,7 +265,6 @@ public:
 
                 case ALUOp::SRA:
                     return (op1.sValue() >> (op2.uValue() - 1)) & 1;
-                    // return static_cast<uint32_t>(op1.sValue() >> op2.uValue());
 
                 case ALUOp::SRL:
                     return (int)(op1.uValue() >> (op2.uValue() - 1)) & 1;

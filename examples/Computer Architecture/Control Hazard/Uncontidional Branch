@@ -11,7 +11,7 @@ main:
 		li	t0, 5
 		li	t1, 4
 		j	branch
-		add t2, t0, t1
+		add t2, t0, t1		# This instruction will be emptied from pipeline
 		mul	t2, t2, t1
 branch:
 		sub t3, t0, t1
