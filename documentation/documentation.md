@@ -1537,6 +1537,7 @@ branch:
 | (skipped) add t2, t0, t1 | | IF | ID | EX | MEM | WB |
 | (br target) sub t3, t0, t1 | | | IF | ID | EX | MEM | WB |
 
-Branch Prediction:
+## References
 
-Will be Implemented
+1. Original creator of the program, Morten Borup Petersen's Wiki Page: https://github.com/mortbopet/Ripes/wiki
+2. The RISC-V Instruction Set Manual Volume I: Unpriveled ISA: https://riscv.org/wp-content/uploads/2019/12/riscv-spec-20191213.pdf
