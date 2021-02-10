@@ -37,7 +37,8 @@ Ripes is a visual computer architecture simulator and assembly code editor built
         * [RISC-V Assembly Programs](#risc-v-assembly-programs) 
         * [Computer Architecture Examples](#computer-architecture-examples)
             * [Data Hazard](#data-hazard)
-            * [Control Hazard](#control-hazard)<br/><br/><br/><br/>
+            * [Control Hazard](#control-hazard)
+* [References](#references)<br/><br/><br/><br/>
 
 ## Downloading & Installation
 
