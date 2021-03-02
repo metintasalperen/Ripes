@@ -21,18 +21,14 @@ If this is your first time using Ripes, please refer to the [introduction](https
 For further information, please refer to the [Ripes wiki](https://github.com/mortbopet/Ripes/wiki).
 
 ## Downloading & Installation
-Prebuilt binaries are available for Linux, Windows & Mac through the [Releases page](https://github.com/mortbopet/Ripes/releases).  
-
-### Linux
-Releases for Linux are distributed in the AppImage format. To run an AppImage:
-* Run `chmod a+x` on the AppImage file
-* Run the file!
-The AppImage for Linux should be compatible with most Linux distributions.
+Prebuilt binaries are available Windows through the [Releases page](https://github.com/metintasalperen/Ripes/releases).  
 
 ### Windows
 For Windows, the C++ runtime library must be available (if not, a msvcp140.dll error will be produced). You most likely already have this installed, but if this is not the case, you download it [here](https://www.microsoft.com/en-us/download/details.aspx?id=48145).
 
 ## Building
+You may also build the program from source code instead of using prebuilt binaries.
+
 Initially, the following dependencies must be made available:
 - A recent (5.10+) version of [Qt](https://www.qt.io/download) + Qt Charts (**not** bundled with Qt by default, but can be selected during Qt installation)
 - [CMake](https://cmake.org/)
